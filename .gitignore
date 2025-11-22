@@ -1,0 +1,99 @@
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+Cargo.lock
+.cargo/
+
+# Julia
+.julia/
+Manifest.toml
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+deps/build.log
+deps/downloads/
+
+# ReScript/Deno
+.deno/
+node_modules/
+dist/
+build/
+*.bs.js
+
+# Mercury/Logtalk (if used)
+*.mh
+*.err
+Mercury/
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Podman/Container
+*.tar
+*.tar.gz
+*.tgz
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Test coverage
+coverage/
+*.profdata
+*.profraw
+lcov.info
+coverage.xml
+coverage.info
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
+site/
+
+# OS-specific
+Thumbs.db
+.Spotlight-V100
+.Trashes
+
+# Security scanning
+trivy-*.json
+*.sarif
+
+# Proof artifacts (keep proofs source, ignore artifacts)
+*.proof.cache
+*.proof.bin
+
+# Environment files (never commit secrets!)
+.env
+.env.local
+*.credentials
+*.key
+*.pem
+
+# REUSE tool
+.reuse/spdx-cache

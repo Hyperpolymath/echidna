@@ -1,0 +1,146 @@
+:: Basic Logical Proofs for ECHIDNA Mizar Integration
+:: File: basic.miz
+:: Purpose: Simple proofs demonstrating basic logical implications and theorems
+:: Complexity: Beginner level
+
+environ
+
+ vocabularies SUBSET_1, XBOOLE_0, TARSKI, ZFMISC_1;
+ notations TARSKI, XBOOLE_0, SUBSET_1;
+ constructors TARSKI, XBOOLE_0;
+ registrations XBOOLE_0;
+
+begin
+
+:: Simple logical implications
+
+theorem Th1:
+  for P, Q being set holds P = Q implies Q = P
+proof
+  let P, Q be set;
+  assume P = Q;
+  thus Q = P;
+end;
+
+theorem Th2:
+  for P being set holds P = P
+proof
+  let P be set;
+  thus P = P;
+end;
+
+theorem Th3:
+  for P, Q, R being set holds
+    P = Q & Q = R implies P = R
+proof
+  let P, Q, R be set;
+  assume A1: P = Q & Q = R;
+  thus P = R by A1;
+end;
+
+:: Simple set-theoretic theorems
+
+theorem Th4:
+  for X being set holds X \/ X = X
+proof
+  let X be set;
+  thus X \/ X c= X
+  proof
+    let x be object;
+    assume x in X \/ X;
+    then x in X or x in X;
+    hence x in X;
+  end;
+  thus X c= X \/ X
+  proof
+    let x be object;
+    assume x in X;
+    then x in X or x in X;
+    hence x in X \/ X by XBOOLE_0:def 3;
+  end;
+end;
+
+theorem Th5:
+  for X being set holds X /\ X = X
+proof
+  let X be set;
+  thus X /\ X c= X
+  proof
+    let x be object;
+    assume x in X /\ X;
+    then x in X & x in X by XBOOLE_0:def 4;
+    hence x in X;
+  end;
+  thus X c= X /\ X
+  proof
+    let x be object;
+    assume A1: x in X;
+    then x in X & x in X by A1;
+    hence x in X /\ X by XBOOLE_0:def 4;
+  end;
+end;
+
+:: Basic empty set properties
+
+theorem Th6:
+  for X being set holds X \/ {} = X
+proof
+  let X be set;
+  thus X \/ {} c= X
+  proof
+    let x be object;
+    assume x in X \/ {};
+    then x in X or x in {} by XBOOLE_0:def 3;
+    hence x in X;
+  end;
+  thus X c= X \/ {}
+  proof
+    let x be object;
+    assume x in X;
+    then x in X or x in {};
+    hence x in X \/ {} by XBOOLE_0:def 3;
+  end;
+end;
+
+theorem Th7:
+  for X being set holds X /\ {} = {}
+proof
+  let X be set;
+  thus X /\ {} c= {}
+  proof
+    let x be object;
+    assume x in X /\ {};
+    then x in X & x in {} by XBOOLE_0:def 4;
+    hence x in {};
+  end;
+  thus {} c= X /\ {};
+end;
+
+:: Basic subset properties
+
+theorem Th8:
+  for X, Y being set holds X c= Y & Y c= X implies X = Y
+proof
+  let X, Y be set;
+  assume X c= Y & Y c= X;
+  thus X = Y by XBOOLE_0:def 10;
+end;
+
+theorem Th9:
+  for X being set holds {} c= X
+proof
+  let X be set;
+  let x be object;
+  assume x in {};
+  thus x in X;
+end;
+
+theorem Th10:
+  for X being set holds X c= X
+proof
+  let X be set;
+  let x be object;
+  assume x in X;
+  thus x in X;
+end;
+

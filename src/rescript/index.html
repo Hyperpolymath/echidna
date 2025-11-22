@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: MIT OR Palimpsest-0.6 -->
+<!-- SPDX-FileCopyrightText: 2025 ECHIDNA Project Team -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ECHIDNA - Extensible Cognitive Hybrid Intelligence for Deductive Neural Assistance">
+  <meta name="keywords" content="theorem proving, neurosymbolic, proof assistant, AI">
+  <meta name="author" content="ECHIDNA Project Team">
+
+  <title>ECHIDNA - Neurosymbolic Theorem Proving Platform</title>
+
+  <!-- Tailwind CSS CDN for development (replace with build in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Favicon (add your own) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦔</text></svg>">
+
+  <style>
+    /* Inline critical styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    #root {
+      min-height: 100vh;
+    }
+
+    .loading-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Main app container -->
+  <div id="root">
+    <!-- Loading screen shown before React app loads -->
+    <div class="loading-screen">
+      <div class="text-center">
+        <div class="text-6xl mb-4">🦔</div>
+        <h1 class="text-3xl font-bold mb-4">ECHIDNA</h1>
+        <div class="loading-spinner mx-auto mb-4"></div>
+        <p class="text-sm">Loading Neurosymbolic Theorem Proving Platform...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- React and app script -->
+  <script type="module">
+    // Import from ES modules
+    import React from 'https://esm.sh/react@18.2.0';
+    import ReactDOM from 'https://esm.sh/react-dom@18.2.0';
+
+    // Make React available globally for ReScript
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+
+    // Load the compiled ReScript app
+    import('./src/Main.bs.js').catch(err => {
+      console.error('Failed to load app:', err);
+      document.getElementById('root').innerHTML = `
+        <div style="padding: 2rem; text-align: center;">
+          <h1 style="color: #dc2626;">Failed to Load Application</h1>
+          <p style="color: #6b7280;">Please check the console for errors.</p>
+          <pre style="margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 0.5rem; text-align: left; overflow-x: auto;">
+${err.stack || err.toString()}
+          </pre>
+        </div>
+      `;
+    });
+  </script>
+
+  <!-- Analytics placeholder (add your analytics here) -->
+  <!-- <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script> -->
+</body>
+</html>

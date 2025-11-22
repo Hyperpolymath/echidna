@@ -1,0 +1,67 @@
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+#
+# Rustfmt configuration for ECHIDNA
+
+# Edition
+edition = "2021"
+
+# Line width
+max_width = 100
+comment_width = 100
+wrap_comments = true
+
+# Imports
+imports_granularity = "Crate"
+group_imports = "StdExternalCrate"
+reorder_imports = true
+reorder_modules = true
+
+# Formatting
+fn_single_line = false
+where_single_line = false
+force_explicit_abi = true
+format_code_in_doc_comments = true
+format_macro_matchers = true
+format_strings = true
+hard_tabs = false
+tab_spaces = 4
+
+# Consistency
+newline_style = "Unix"
+normalize_comments = true
+normalize_doc_attributes = true
+remove_nested_parens = true
+
+# Control flow
+match_block_trailing_comma = true
+overflow_delimited_expr = true
+use_small_heuristics = "Default"
+
+# Indentation
+indent_style = "Block"
+match_arm_blocks = true
+trailing_comma = "Vertical"
+trailing_semicolon = true
+
+# Spacing
+space_after_colon = true
+space_before_colon = false
+spaces_around_ranges = false
+struct_lit_single_line = true
+
+# Blank lines
+blank_lines_lower_bound = 0
+blank_lines_upper_bound = 1
+
+# Documentation
+doc_comment_code_block_width = 100
+
+# Error handling
+error_on_line_overflow = false
+error_on_unformatted = false
+
+# Unstable features (require nightly - commented out for stable)
+# unstable_features = true
+# format_macro_bodies = true
+# imports_granularity = "Module"

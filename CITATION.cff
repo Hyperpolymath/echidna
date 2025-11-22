@@ -1,0 +1,43 @@
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ECHIDNA: Extensible Cognitive Hybrid Intelligence for Deductive Neural Assistance"
+abstract: "A neurosymbolic theorem proving platform that transforms Quill (Agda-only neural solver) into a universal multi-prover system supporting 12 theorem provers with aspect tagging, OpenCyc integration, and DeepProbLog probabilistic logic."
+authors:
+  - name: "ECHIDNA Project Contributors"
+    email: "contact@echidna-project.org"
+repository-code: "https://gitlab.com/non-initiate/rhodinised/quill"
+url: "https://gitlab.com/non-initiate/rhodinised/quill"
+license:
+  - MIT
+  - Palimpsest-0.6
+version: 0.1.0
+date-released: 2025-11-22
+keywords:
+  - theorem-proving
+  - neurosymbolic-ai
+  - formal-verification
+  - proof-synthesis
+  - agda
+  - coq
+  - lean
+  - isabelle
+  - z3
+  - cvc5
+  - metamath
+  - hol-light
+  - mizar
+  - pvs
+  - acl2
+  - hol4
+  - rust
+  - julia
+  - rescript
+  - machine-learning
+  - deep-learning
+  - probabilistic-logic
+  - opencyc
+  - deepProbLog

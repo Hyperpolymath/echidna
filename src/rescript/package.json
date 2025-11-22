@@ -1,0 +1,32 @@
+{
+  "name": "echidna-ui",
+  "version": "0.1.0",
+  "description": "ECHIDNA Neurosymbolic Theorem Proving Platform - ReScript UI",
+  "license": "(MIT OR Palimpsest-0.6)",
+  "type": "module",
+  "scripts": {
+    "res:build": "rescript build",
+    "res:dev": "rescript build -w",
+    "res:clean": "rescript clean",
+    "dev": "deno run --allow-net --allow-read --watch server.ts",
+    "build": "rescript build && deno bundle src/Main.bs.js dist/bundle.js",
+    "serve": "deno run --allow-net --allow-read server.ts",
+    "check": "rescript build && deno check src/Main.bs.js"
+  },
+  "keywords": [
+    "theorem-proving",
+    "neurosymbolic",
+    "rescript",
+    "deno",
+    "proof-assistant"
+  ],
+  "devDependencies": {
+    "@rescript/core": "^1.2.0",
+    "rescript": "^11.0.1",
+    "@rescript/react": "^0.12.1"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

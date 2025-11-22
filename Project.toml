@@ -1,0 +1,72 @@
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+
+name = "ECHIDNA"
+uuid = "00000000-0000-0000-0000-000000000000"  # Generate proper UUID
+authors = ["ECHIDNA Project Contributors"]
+version = "0.1.0"
+
+[deps]
+# Machine Learning and Neural Networks
+Flux = "0.14"
+MLJ = "0.20"
+MLJFlux = "0.4"
+
+# Probabilistic Programming (DeepProbLog integration)
+Gen = "0.4"
+Distributions = "0.25"
+
+# Data Processing
+DataFrames = "1.6"
+CSV = "0.10"
+JSON3 = "1.14"
+
+# Linear Algebra and Scientific Computing
+LinearAlgebra = "1.10"
+SparseArrays = "1.10"
+Statistics = "1.10"
+
+# Optimization
+Optimization = "3.19"
+Optim = "1.9"
+
+# Graph Theory (for proof graphs)
+Graphs = "1.9"
+MetaGraphs = "0.7"
+
+# String Processing and Parsing
+REPL = "1.10"
+Unicode = "1.10"
+
+# File I/O
+TOML = "1.0"
+YAML = "0.4"
+
+# Testing and Quality
+Test = "1.10"
+Logging = "1.10"
+
+# Interoperability
+CxxWrap = "0.15"  # C++ interop for prover backends
+
+[compat]
+julia = "1.10"
+Flux = "0.14"
+MLJ = "0.20"
+DataFrames = "1.6"
+CSV = "0.10"
+JSON3 = "1.13, 1.14"
+Distributions = "0.25"
+Graphs = "1.9"
+Optim = "1.9"
+
+[extras]
+# Development and Testing dependencies
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+JET = "c3a54625-cd67-489e-a8e7-0a5a0ff4e31b"
+Coverage = "a2441757-f6aa-5fb2-8edb-039e3f45d037"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+
+[targets]
+test = ["Test", "Aqua", "JET", "Coverage", "BenchmarkTools"]

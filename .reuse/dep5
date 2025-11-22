@@ -1,0 +1,74 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ECHIDNA
+Upstream-Contact: ECHIDNA Project Team
+Source: https://gitlab.com/non-initiate/rhodinised/quill
+
+# Core source code - dual licensed
+Files: src/* Cargo.toml Cargo.lock Justfile
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Rust source files
+Files: src/rust/*.rs src/rust/**/*.rs
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Julia source files
+Files: src/julia/*.jl src/julia/**/*.jl Project.toml Manifest.toml
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# ReScript source files
+Files: src/rescript/*.res src/rescript/**/*.res src/rescript/*.resi
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Mercury/Logtalk source files (if present)
+Files: src/mercury/*.m src/mercury/**/*.m
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Documentation files
+Files: docs/* *.md README.md CONTRIBUTING.md CHANGELOG.md AUTHORS.md
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Configuration files
+Files: .gitlab-ci.yml Containerfile .editorconfig rustfmt.toml codecov.yml .trivyignore
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# GitLab templates
+Files: .gitlab/* .gitlab/**/*
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Test files
+Files: tests/* tests/**/*
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Example files and proofs
+Files: examples/* proofs/* proofs/**/*
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Scripts
+Files: scripts/*.sh scripts/*.jl
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Build artifacts and generated files (excluded from licensing)
+Files: target/* .cargo/* .julia/* *.lock
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: MIT AND Palimpsest-0.6
+
+# Git and IDE configuration (public domain / CC0)
+Files: .gitignore .gitattributes
+Copyright: 2024-2025 ECHIDNA Project Contributors
+License: CC0-1.0
+
+# License files themselves
+Files: LICENSES/*
+Copyright: Various (see individual license files)
+License: MIT AND Palimpsest-0.6

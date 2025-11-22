@@ -1,0 +1,279 @@
+:: Arithmetic Proofs for ECHIDNA Mizar Integration
+:: File: numbers.miz
+:: Purpose: Natural number properties and basic arithmetic theorems
+:: Complexity: Advanced level
+
+environ
+
+ vocabularies NUMBERS, NAT_1, ARYTM_3, XXREAL_0, CARD_1, ORDINAL1,
+              SUBSET_1, XBOOLE_0, TARSKI, RELAT_1, FUNCT_1, ARYTM_0;
+ notations TARSKI, XBOOLE_0, SUBSET_1, ORDINAL1, NUMBERS, XCMPLX_0,
+          XXREAL_0, NAT_1;
+ constructors XXREAL_0, NAT_1, XCMPLX_0;
+ registrations XBOOLE_0, ORDINAL1, XXREAL_0, XREAL_0, NAT_1;
+ requirements REAL, NUMERALS, SUBSET, BOOLE, ARITHM;
+ theorems NAT_1, ORDINAL1, XCMPLX_0, XCMPLX_1, XXREAL_0, XREAL_1;
+
+begin
+
+:: Basic properties of natural numbers
+
+theorem Nat1:
+  for n being Nat holds 0 <= n
+proof
+  let n be Nat;
+  thus 0 <= n by NAT_1:2;
+end;
+
+theorem Nat2:
+  for n being Nat holds n + 0 = n
+proof
+  let n be Nat;
+  thus n + 0 = n;
+end;
+
+theorem Nat3:
+  for n being Nat holds n * 1 = n
+proof
+  let n be Nat;
+  thus n * 1 = n;
+end;
+
+theorem Nat4:
+  for n being Nat holds n * 0 = 0
+proof
+  let n be Nat;
+  thus n * 0 = 0;
+end;
+
+:: Commutativity of addition and multiplication
+
+theorem AddComm:
+  for m, n being Nat holds m + n = n + m
+proof
+  let m, n be Nat;
+  thus m + n = n + m;
+end;
+
+theorem MultComm:
+  for m, n being Nat holds m * n = n * m
+proof
+  let m, n be Nat;
+  thus m * n = n * m;
+end;
+
+:: Associativity of addition and multiplication
+
+theorem AddAssoc:
+  for k, m, n being Nat holds
+    (k + m) + n = k + (m + n)
+proof
+  let k, m, n be Nat;
+  thus (k + m) + n = k + (m + n);
+end;
+
+theorem MultAssoc:
+  for k, m, n being Nat holds
+    (k * m) * n = k * (m * n)
+proof
+  let k, m, n be Nat;
+  thus (k * m) * n = k * (m * n);
+end;
+
+:: Distributivity
+
+theorem LeftDistrib:
+  for k, m, n being Nat holds
+    k * (m + n) = k * m + k * n
+proof
+  let k, m, n be Nat;
+  thus k * (m + n) = k * m + k * n;
+end;
+
+theorem RightDistrib:
+  for k, m, n being Nat holds
+    (m + n) * k = m * k + n * k
+proof
+  let k, m, n be Nat;
+  thus (m + n) * k = m * k + n * k;
+end;
+
+:: Order properties
+
+theorem OrderTrans:
+  for k, m, n being Nat holds
+    k <= m & m <= n implies k <= n
+proof
+  let k, m, n be Nat;
+  assume A1: k <= m & m <= n;
+  thus k <= n by A1, XXREAL_0:2;
+end;
+
+theorem OrderAntiSymm:
+  for m, n being Nat holds
+    m <= n & n <= m implies m = n
+proof
+  let m, n be Nat;
+  assume A1: m <= n & n <= m;
+  thus m = n by A1, XXREAL_0:1;
+end;
+
+theorem AddMonotone:
+  for k, m, n being Nat holds
+    m <= n implies k + m <= k + n
+proof
+  let k, m, n be Nat;
+  assume A1: m <= n;
+  thus k + m <= k + n by A1, XREAL_1:6;
+end;
+
+theorem MultMonotone:
+  for k, m, n being Nat holds
+    k > 0 & m <= n implies k * m <= k * n
+proof
+  let k, m, n be Nat;
+  assume A1: k > 0 & m <= n;
+  thus k * m <= k * n by A1, XREAL_1:64;
+end;
+
+:: Addition cancellation
+
+theorem AddCancelLeft:
+  for k, m, n being Nat holds
+    k + m = k + n implies m = n
+proof
+  let k, m, n be Nat;
+  assume A1: k + m = k + n;
+  thus m = n by A1, XCMPLX_1:2;
+end;
+
+theorem AddCancelRight:
+  for k, m, n being Nat holds
+    m + k = n + k implies m = n
+proof
+  let k, m, n be Nat;
+  assume A1: m + k = n + k;
+  thus m = n by A1, XCMPLX_1:2;
+end;
+
+:: Multiplication cancellation
+
+theorem MultCancelLeft:
+  for k, m, n being Nat holds
+    k <> 0 & k * m = k * n implies m = n
+proof
+  let k, m, n be Nat;
+  assume A1: k <> 0 & k * m = k * n;
+  thus m = n by A1, XCMPLX_1:5;
+end;
+
+theorem MultCancelRight:
+  for k, m, n being Nat holds
+    k <> 0 & m * k = n * k implies m = n
+proof
+  let k, m, n be Nat;
+  assume A1: k <> 0 & m * k = n * k;
+  thus m = n by A1, XCMPLX_1:5;
+end;
+
+:: Special theorems combining properties
+
+theorem AddSquare:
+  for m, n being Nat holds
+    (m + n) * (m + n) = m * m + 2 * m * n + n * n
+proof
+  let m, n be Nat;
+  thus (m + n) * (m + n)
+    = (m + n) * m + (m + n) * n
+    .= m * m + n * m + (m + n) * n
+    .= m * m + n * m + (m * n + n * n)
+    .= m * m + n * m + m * n + n * n
+    .= m * m + (n * m + m * n) + n * n
+    .= m * m + (m * n + m * n) + n * n
+    .= m * m + 2 * (m * n) + n * n
+    .= m * m + 2 * m * n + n * n;
+end;
+
+theorem DiffSquares:
+  for m, n being Nat st m >= n holds
+    m * m - n * n = (m + n) * (m - n)
+proof
+  let m, n be Nat;
+  assume A1: m >= n;
+  thus m * m - n * n
+    = m * m + (- n * n)
+    .= m * (m - n) + m * n + (- n * n)
+    .= m * (m - n) + (m * n - n * n) by A1
+    .= m * (m - n) + n * (m - n) by A1
+    .= (m + n) * (m - n);
+end;
+
+:: Induction-related theorems
+
+theorem SuccNat:
+  for n being Nat holds n + 1 is Nat
+proof
+  let n be Nat;
+  thus n + 1 is Nat;
+end;
+
+theorem PositiveSum:
+  for m, n being Nat holds
+    m > 0 & n > 0 implies m + n > 0
+proof
+  let m, n be Nat;
+  assume A1: m > 0 & n > 0;
+  then m >= 1 & n >= 1 by NAT_1:14;
+  then m + n >= 1 + 1 by XREAL_1:7;
+  then m + n >= 2;
+  hence m + n > 0;
+end;
+
+theorem PositiveProduct:
+  for m, n being Nat holds
+    m > 0 & n > 0 implies m * n > 0
+proof
+  let m, n be Nat;
+  assume A1: m > 0 & n > 0;
+  then m >= 1 & n >= 1 by NAT_1:14;
+  then m * n >= 1 * 1 by XREAL_1:66;
+  then m * n >= 1;
+  hence m * n > 0;
+end;
+
+:: Min and Max properties
+
+theorem MinSymmetric:
+  for m, n being Nat holds min(m, n) = min(n, m)
+proof
+  let m, n be Nat;
+  thus min(m, n) = min(n, m) by XXREAL_0:def 9;
+end;
+
+theorem MaxSymmetric:
+  for m, n being Nat holds max(m, n) = max(n, m)
+proof
+  let m, n be Nat;
+  thus max(m, n) = max(n, m) by XXREAL_0:def 10;
+end;
+
+theorem MinMax:
+  for m, n being Nat holds
+    min(m, n) + max(m, n) = m + n
+proof
+  let m, n be Nat;
+  per cases;
+  suppose A1: m <= n;
+    then min(m, n) = m by XXREAL_0:def 9;
+    then A2: min(m, n) = m;
+    max(m, n) = n by A1, XXREAL_0:def 10;
+    hence min(m, n) + max(m, n) = m + n by A2;
+  end;
+  suppose A1: m > n;
+    then min(m, n) = n by XXREAL_0:def 9;
+    then A2: min(m, n) = n;
+    max(m, n) = m by A1, XXREAL_0:def 10;
+    hence min(m, n) + max(m, n) = m + n by A2;
+  end;
+end;
+

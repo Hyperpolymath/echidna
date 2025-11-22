@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: echidna-ui
+Upstream-Contact: ECHIDNA Project Team
+Source: https://gitlab.com/non-initiate/rhodinised/quill
+
+Files: package.json package-lock.json rescript.json deno.json import_map.json tailwind.config.js
+Copyright: 2025 ECHIDNA Project Team
+License: MIT OR Palimpsest-0.6
+
+Files: node_modules/* .gitignore
+Copyright: Various
+License: MIT OR Palimpsest-0.6

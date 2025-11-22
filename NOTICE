@@ -1,0 +1,166 @@
+ECHIDNA - Extensible Cognitive Hybrid Intelligence for Deductive Neural Assistance
+Copyright (c) 2024-2025 ECHIDNA Project Contributors
+
+This project is dual-licensed under:
+1. MIT License
+2. Palimpsest License v0.6
+
+You may choose to use this software under the terms of either license.
+
+================================================================================
+
+LICENSES
+
+This software is licensed under the following licenses:
+
+1. MIT License
+   Full text available in: LICENSES/MIT.txt
+   SPDX-License-Identifier: MIT
+
+2. Palimpsest License v0.6
+   Full text available in: LICENSES/Palimpsest-0.6.txt
+   SPDX-License-Identifier: Palimpsest-0.6
+
+================================================================================
+
+THIRD-PARTY SOFTWARE
+
+This project includes or depends on third-party software components with their
+own licenses. See the respective component directories and files for details.
+
+Rust Dependencies:
+- See Cargo.toml for complete list
+- Run `cargo license` for dependency licenses
+
+Julia Packages:
+- See Project.toml and Manifest.toml for complete list
+- All Julia packages respect their individual licenses
+
+ReScript/Deno Dependencies:
+- See package configuration for complete list
+
+Theorem Provers (integrated, not included):
+- Agda - BSD-3-Clause
+- Coq/Rocq - LGPL-2.1
+- Lean - Apache-2.0
+- Isabelle - BSD-3-Clause
+- Z3 - MIT
+- CVC5 - BSD-3-Clause
+- Metamath - Public Domain
+- HOL Light - BSD-2-Clause
+- Mizar - GPL-3.0
+- PVS - GPL-2.0
+- ACL2 - BSD-3-Clause
+- HOL4 - BSD-3-Clause
+
+================================================================================
+
+REUSE COMPLIANCE
+
+This project is compliant with REUSE Software Licensing specifications.
+For detailed copyright and licensing information, see:
+
+- .reuse/dep5 - Bulk copyright declarations
+- Individual file headers - SPDX license identifiers
+- LICENSES/ directory - Full license texts
+
+To verify compliance, run:
+  reuse lint
+
+================================================================================
+
+RSR/CCCP COMPLIANCE
+
+This project follows the Rhodium Standard Repository (RSR) and
+Cloud Computing Compliance Package (CCCP) guidelines.
+
+For more information:
+https://rhodium-standard.org
+
+================================================================================
+
+ATTRIBUTION REQUIREMENTS
+
+When using this software, you must:
+
+1. Retain all copyright notices
+2. Retain all license texts
+3. Attribute the ECHIDNA Project Contributors
+4. Include a copy of this NOTICE file (or equivalent attribution)
+
+For MIT License:
+- Include copyright notice and permission notice in all copies
+
+For Palimpsest License:
+- Retain attribution notices
+- Document modifications
+- Preserve transparency requirements
+- Respect ethical use provisions
+
+================================================================================
+
+SECURITY
+
+For security vulnerabilities, please see SECURITY.md and contact:
+security@echidna-project.org
+
+Do not disclose security issues publicly until they have been addressed.
+
+================================================================================
+
+CONTRIBUTIONS
+
+All contributions to this project are licensed under the same dual license
+(MIT AND Palimpsest-0.6) unless explicitly stated otherwise.
+
+By contributing, you certify that:
+1. You have the right to submit the contribution
+2. You agree to license it under the project's licenses
+3. You understand the contribution will be publicly available
+
+See CONTRIBUTING.md for details.
+
+================================================================================
+
+TRADEMARKS
+
+"ECHIDNA" and related marks may be trademarks of the ECHIDNA Project.
+Use of these marks must comply with trademark guidelines (when established).
+
+================================================================================
+
+CITATIONS
+
+If you use this software in academic work, please cite:
+
+@software{echidna2025,
+  title = {ECHIDNA: Extensible Cognitive Hybrid Intelligence for
+           Deductive Neural Assistance},
+  author = {ECHIDNA Project Contributors},
+  year = {2025},
+  url = {https://gitlab.com/non-initiate/rhodinised/quill},
+  license = {MIT AND Palimpsest-0.6}
+}
+
+See CITATION.cff for machine-readable citation metadata.
+
+================================================================================
+
+CONTACT
+
+Project Repository: https://gitlab.com/non-initiate/rhodinised/quill
+Issue Tracker: https://gitlab.com/non-initiate/rhodinised/quill/-/issues
+Documentation: See docs/ directory
+
+================================================================================
+
+ACKNOWLEDGMENTS
+
+Based on the Quill project (Agda neural solver)
+Thanks to all theorem prover communities
+Thanks to all contributors (see AUTHORS.md)
+
+================================================================================
+
+Last Updated: 2025-11-22
+Version: 0.1.0

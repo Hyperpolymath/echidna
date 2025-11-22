@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window", "dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  },
+  "importMap": "./import_map.json",
+  "tasks": {
+    "dev": "deno run --allow-net --allow-read --allow-env --watch server.ts",
+    "serve": "deno run --allow-net --allow-read --allow-env server.ts",
+    "build": "deno run --allow-read --allow-write --allow-env build.ts"
+  },
+  "fmt": {
+    "files": {
+      "include": ["src/", "server.ts", "build.ts"]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 100,
+      "indentWidth": 2,
+      "singleQuote": false
+    }
+  },
+  "lint": {
+    "files": {
+      "include": ["src/", "server.ts", "build.ts"]
+    },
+    "rules": {
+      "tags": ["recommended"]
+    }
+  }
+}

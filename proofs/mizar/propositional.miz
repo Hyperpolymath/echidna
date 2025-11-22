@@ -1,0 +1,290 @@
+:: Propositional Logic Proofs for ECHIDNA Mizar Integration
+:: File: propositional.miz
+:: Purpose: Logical equivalences and classical reasoning
+:: Complexity: Intermediate level
+
+environ
+
+ vocabularies SUBSET_1, XBOOLE_0, TARSKI, ZFMISC_1, BOOLE;
+ notations TARSKI, XBOOLE_0, SUBSET_1;
+ constructors TARSKI, XBOOLE_0;
+ registrations XBOOLE_0;
+ theorems XBOOLE_0, XBOOLE_1, TARSKI;
+
+begin
+
+:: De Morgan's Laws
+
+theorem DeMorgan1:
+  for X, Y, Z being set holds
+    Z \ (X \/ Y) = (Z \ X) /\ (Z \ Y)
+proof
+  let X, Y, Z be set;
+  thus Z \ (X \/ Y) c= (Z \ X) /\ (Z \ Y)
+  proof
+    let x be object;
+    assume A1: x in Z \ (X \/ Y);
+    then A2: x in Z & not x in X \/ Y by XBOOLE_0:def 5;
+    then A3: not (x in X or x in Y) by XBOOLE_0:def 3;
+    then A4: not x in X & not x in Y;
+    then x in Z \ X by A2, XBOOLE_0:def 5;
+    then A5: x in (Z \ X);
+    x in Z \ Y by A2, A4, XBOOLE_0:def 5;
+    hence x in (Z \ X) /\ (Z \ Y) by A5, XBOOLE_0:def 4;
+  end;
+  thus (Z \ X) /\ (Z \ Y) c= Z \ (X \/ Y)
+  proof
+    let x be object;
+    assume A1: x in (Z \ X) /\ (Z \ Y);
+    then A2: x in Z \ X & x in Z \ Y by XBOOLE_0:def 4;
+    then A3: x in Z & not x in X by XBOOLE_0:def 5;
+    A4: x in Z & not x in Y by A2, XBOOLE_0:def 5;
+    then not (x in X or x in Y) by A3;
+    then not x in X \/ Y by XBOOLE_0:def 3;
+    hence x in Z \ (X \/ Y) by A3, XBOOLE_0:def 5;
+  end;
+end;
+
+theorem DeMorgan2:
+  for X, Y, Z being set holds
+    Z \ (X /\ Y) = (Z \ X) \/ (Z \ Y)
+proof
+  let X, Y, Z be set;
+  thus Z \ (X /\ Y) c= (Z \ X) \/ (Z \ Y)
+  proof
+    let x be object;
+    assume A1: x in Z \ (X /\ Y);
+    then A2: x in Z & not x in X /\ Y by XBOOLE_0:def 5;
+    then not (x in X & x in Y) by XBOOLE_0:def 4;
+    then A3: not x in X or not x in Y;
+    per cases by A3;
+    suppose not x in X;
+      then x in Z \ X by A2, XBOOLE_0:def 5;
+      then x in (Z \ X) \/ (Z \ Y) by XBOOLE_0:def 3;
+      hence x in (Z \ X) \/ (Z \ Y);
+    end;
+    suppose not x in Y;
+      then x in Z \ Y by A2, XBOOLE_0:def 5;
+      then x in (Z \ X) \/ (Z \ Y) by XBOOLE_0:def 3;
+      hence x in (Z \ X) \/ (Z \ Y);
+    end;
+  end;
+  thus (Z \ X) \/ (Z \ Y) c= Z \ (X /\ Y)
+  proof
+    let x be object;
+    assume x in (Z \ X) \/ (Z \ Y);
+    then A1: x in Z \ X or x in Z \ Y by XBOOLE_0:def 3;
+    per cases by A1;
+    suppose A2: x in Z \ X;
+      then A3: x in Z & not x in X by XBOOLE_0:def 5;
+      then not (x in X & x in Y);
+      then not x in X /\ Y by XBOOLE_0:def 4;
+      hence x in Z \ (X /\ Y) by A3, XBOOLE_0:def 5;
+    end;
+    suppose A2: x in Z \ Y;
+      then A3: x in Z & not x in Y by XBOOLE_0:def 5;
+      then not (x in X & x in Y);
+      then not x in X /\ Y by XBOOLE_0:def 4;
+      hence x in Z \ (X /\ Y) by A3, XBOOLE_0:def 5;
+    end;
+  end;
+end;
+
+:: Distributive Laws
+
+theorem Distributive1:
+  for X, Y, Z being set holds
+    X /\ (Y \/ Z) = (X /\ Y) \/ (X /\ Z)
+proof
+  let X, Y, Z be set;
+  thus X /\ (Y \/ Z) c= (X /\ Y) \/ (X /\ Z)
+  proof
+    let x be object;
+    assume A1: x in X /\ (Y \/ Z);
+    then A2: x in X & x in Y \/ Z by XBOOLE_0:def 4;
+    then A3: x in Y or x in Z by XBOOLE_0:def 3;
+    per cases by A3;
+    suppose x in Y;
+      then x in X /\ Y by A2, XBOOLE_0:def 4;
+      hence x in (X /\ Y) \/ (X /\ Z) by XBOOLE_0:def 3;
+    end;
+    suppose x in Z;
+      then x in X /\ Z by A2, XBOOLE_0:def 4;
+      hence x in (X /\ Y) \/ (X /\ Z) by XBOOLE_0:def 3;
+    end;
+  end;
+  thus (X /\ Y) \/ (X /\ Z) c= X /\ (Y \/ Z)
+  proof
+    let x be object;
+    assume x in (X /\ Y) \/ (X /\ Z);
+    then A1: x in X /\ Y or x in X /\ Z by XBOOLE_0:def 3;
+    per cases by A1;
+    suppose A2: x in X /\ Y;
+      then A3: x in X & x in Y by XBOOLE_0:def 4;
+      then x in Y \/ Z by XBOOLE_0:def 3;
+      hence x in X /\ (Y \/ Z) by A3, XBOOLE_0:def 4;
+    end;
+    suppose A2: x in X /\ Z;
+      then A3: x in X & x in Z by XBOOLE_0:def 4;
+      then x in Y \/ Z by XBOOLE_0:def 3;
+      hence x in X /\ (Y \/ Z) by A3, XBOOLE_0:def 4;
+    end;
+  end;
+end;
+
+theorem Distributive2:
+  for X, Y, Z being set holds
+    X \/ (Y /\ Z) = (X \/ Y) /\ (X \/ Z)
+proof
+  let X, Y, Z be set;
+  thus X \/ (Y /\ Z) c= (X \/ Y) /\ (X \/ Z)
+  proof
+    let x be object;
+    assume x in X \/ (Y /\ Z);
+    then A1: x in X or x in Y /\ Z by XBOOLE_0:def 3;
+    per cases by A1;
+    suppose A2: x in X;
+      then x in X \/ Y by XBOOLE_0:def 3;
+      then A3: x in (X \/ Y);
+      x in X \/ Z by A2, XBOOLE_0:def 3;
+      hence x in (X \/ Y) /\ (X \/ Z) by A3, XBOOLE_0:def 4;
+    end;
+    suppose A2: x in Y /\ Z;
+      then A3: x in Y & x in Z by XBOOLE_0:def 4;
+      then x in X \/ Y by XBOOLE_0:def 3;
+      then A4: x in (X \/ Y);
+      x in X \/ Z by A3, XBOOLE_0:def 3;
+      hence x in (X \/ Y) /\ (X \/ Z) by A4, XBOOLE_0:def 4;
+    end;
+  end;
+  thus (X \/ Y) /\ (X \/ Z) c= X \/ (Y /\ Z)
+  proof
+    let x be object;
+    assume A1: x in (X \/ Y) /\ (X \/ Z);
+    then A2: x in X \/ Y & x in X \/ Z by XBOOLE_0:def 4;
+    then A3: (x in X or x in Y) & (x in X or x in Z) by XBOOLE_0:def 3;
+    per cases by A3;
+    suppose x in X;
+      hence x in X \/ (Y /\ Z) by XBOOLE_0:def 3;
+    end;
+    suppose A4: x in Y & x in Z;
+      then x in Y /\ Z by XBOOLE_0:def 4;
+      hence x in X \/ (Y /\ Z) by XBOOLE_0:def 3;
+    end;
+  end;
+end;
+
+:: Commutative Laws
+
+theorem Commutative1:
+  for X, Y being set holds X \/ Y = Y \/ X
+proof
+  let X, Y be set;
+  thus X \/ Y c= Y \/ X
+  proof
+    let x be object;
+    assume x in X \/ Y;
+    then x in X or x in Y by XBOOLE_0:def 3;
+    then x in Y or x in X;
+    hence x in Y \/ X by XBOOLE_0:def 3;
+  end;
+  thus Y \/ X c= X \/ Y
+  proof
+    let x be object;
+    assume x in Y \/ X;
+    then x in Y or x in X by XBOOLE_0:def 3;
+    then x in X or x in Y;
+    hence x in X \/ Y by XBOOLE_0:def 3;
+  end;
+end;
+
+theorem Commutative2:
+  for X, Y being set holds X /\ Y = Y /\ X
+proof
+  let X, Y be set;
+  thus X /\ Y c= Y /\ X
+  proof
+    let x be object;
+    assume x in X /\ Y;
+    then x in X & x in Y by XBOOLE_0:def 4;
+    then x in Y & x in X;
+    hence x in Y /\ X by XBOOLE_0:def 4;
+  end;
+  thus Y /\ X c= X /\ Y
+  proof
+    let x be object;
+    assume x in Y /\ X;
+    then x in Y & x in X by XBOOLE_0:def 4;
+    then x in X & x in Y;
+    hence x in X /\ Y by XBOOLE_0:def 4;
+  end;
+end;
+
+:: Associative Laws
+
+theorem Associative1:
+  for X, Y, Z being set holds
+    (X \/ Y) \/ Z = X \/ (Y \/ Z)
+proof
+  let X, Y, Z be set;
+  thus (X \/ Y) \/ Z c= X \/ (Y \/ Z)
+  proof
+    let x be object;
+    assume x in (X \/ Y) \/ Z;
+    then A1: x in X \/ Y or x in Z by XBOOLE_0:def 3;
+    per cases by A1;
+    suppose x in X \/ Y;
+      then x in X or x in Y by XBOOLE_0:def 3;
+      then x in X or x in Y \/ Z by XBOOLE_0:def 3;
+      hence x in X \/ (Y \/ Z) by XBOOLE_0:def 3;
+    end;
+    suppose x in Z;
+      then x in Y \/ Z by XBOOLE_0:def 3;
+      hence x in X \/ (Y \/ Z) by XBOOLE_0:def 3;
+    end;
+  end;
+  thus X \/ (Y \/ Z) c= (X \/ Y) \/ Z
+  proof
+    let x be object;
+    assume x in X \/ (Y \/ Z);
+    then A1: x in X or x in Y \/ Z by XBOOLE_0:def 3;
+    per cases by A1;
+    suppose x in X;
+      then x in X \/ Y by XBOOLE_0:def 3;
+      hence x in (X \/ Y) \/ Z by XBOOLE_0:def 3;
+    end;
+    suppose x in Y \/ Z;
+      then x in Y or x in Z by XBOOLE_0:def 3;
+      then x in X \/ Y or x in Z by XBOOLE_0:def 3;
+      hence x in (X \/ Y) \/ Z by XBOOLE_0:def 3;
+    end;
+  end;
+end;
+
+theorem Associative2:
+  for X, Y, Z being set holds
+    (X /\ Y) /\ Z = X /\ (Y /\ Z)
+proof
+  let X, Y, Z be set;
+  thus (X /\ Y) /\ Z c= X /\ (Y /\ Z)
+  proof
+    let x be object;
+    assume x in (X /\ Y) /\ Z;
+    then A1: x in X /\ Y & x in Z by XBOOLE_0:def 4;
+    then A2: x in X & x in Y by XBOOLE_0:def 4;
+    then x in Y & x in Z by A1;
+    then x in Y /\ Z by XBOOLE_0:def 4;
+    hence x in X /\ (Y /\ Z) by A2, XBOOLE_0:def 4;
+  end;
+  thus X /\ (Y /\ Z) c= (X /\ Y) /\ Z
+  proof
+    let x be object;
+    assume x in X /\ (Y /\ Z);
+    then A1: x in X & x in Y /\ Z by XBOOLE_0:def 4;
+    then A2: x in Y & x in Z by XBOOLE_0:def 4;
+    then x in X & x in Y by A1;
+    then x in X /\ Y by XBOOLE_0:def 4;
+    hence x in (X /\ Y) /\ Z by A2, XBOOLE_0:def 4;
+  end;
+end;
+

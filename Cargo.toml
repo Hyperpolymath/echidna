@@ -1,0 +1,100 @@
+[package]
+name = "echidna"
+version = "0.1.0"
+edition = "2021"
+authors = ["ECHIDNA Project Team"]
+license = "MIT OR Palimpsest-0.6"
+description = "Extensible Cognitive Hybrid Intelligence for Deductive Neural Assistance"
+repository = "https://gitlab.com/non-initiate/rhodinised/quill"
+readme = "README.md"
+keywords = ["theorem-proving", "neural", "neurosymbolic", "formal-verification"]
+categories = ["mathematics", "science"]
+
+[dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+
+# CLI framework
+clap = { version = "4.4", features = ["derive", "cargo"] }
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Process management
+subprocess = "0.2"
+
+# Parser combinators
+nom = "7.1"
+
+# HTTP server
+axum = { version = "0.7", features = ["ws"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "cors"] }
+
+# HTTP client for API access
+reqwest = { version = "0.11", features = ["json"] }
+
+# REPL
+rustyline = "13.0"
+
+# Terminal colors and formatting
+colored = "2.1"
+indicatif = "0.17"
+
+# UUID generation
+uuid = { version = "1.6", features = ["v4"] }
+
+# Async utilities
+futures = "0.3"
+
+# WASM support
+wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+
+[dev-dependencies]
+tokio-test = "0.4"
+proptest = "1.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+mockall = "0.12"
+tempfile = "3.8"
+pretty_assertions = "1.4"
+quickcheck = "1.0"
+quickcheck_macros = "1.0"
+which = "6.0"
+
+[features]
+default = []
+wasm = ["wasm-bindgen", "wasm-bindgen-futures"]
+
+[[bin]]
+name = "echidna"
+path = "src/rust/main.rs"
+
+[lib]
+name = "echidna"
+path = "src/rust/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[[bench]]
+name = "parser_bench"
+harness = false
+
+[[bench]]
+name = "verification_bench"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

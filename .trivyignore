@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+#
+# Trivy ignore file for ECHIDNA
+# List vulnerability IDs to ignore during scanning
+
+# Example: Ignore specific CVE with justification
+# CVE-2023-XXXXX  # False positive - not applicable to our use case
+
+# Development dependencies (not in production)
+# CVE-2024-XXXXX  # Only affects dev tools, not runtime
+
+# Accepted risks (document why)
+# CVE-2024-YYYYY  # Risk accepted - mitigated by other controls
+
+# Add ignored vulnerabilities below with clear justification:

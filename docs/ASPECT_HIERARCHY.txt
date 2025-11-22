@@ -1,0 +1,101 @@
+ECHIDNA Aspect Tagging System - Hierarchical View
+==================================================
+
+Root: 60 Aspects organized into 10 Categories
+
+1. LOGIC (7 aspects)
+   ├── PropositionalLogic      (∧, ∨, ¬, →, ↔)
+   ├── PredicateLogic          (∀, ∃, first-order)
+   ├── ModalLogic              (□, ◇, necessity, possibility)
+   ├── TemporalLogic           (always, eventually, until)
+   ├── HigherOrderLogic        (λ, higher-order functions)
+   ├── IntuitionisticLogic     (constructive)
+   └── ClassicalLogic          (law of excluded middle)
+
+2. ARITHMETIC (7 aspects)
+   ├── NaturalNumbers          (ℕ, Peano axioms)
+   ├── Integers                (ℤ)
+   ├── Rationals               (ℚ)
+   ├── Reals                   (ℝ, completeness)
+   ├── Complex                 (ℂ)
+   ├── NumberTheory            (primes, divisibility)
+   └── Arithmetic              (+, -, *, /, mod)
+
+3. ALGEBRA (8 aspects)
+   ├── Groups                  (group theory)
+   ├── Rings                   (ring theory)
+   ├── Fields                  (field theory)
+   ├── VectorSpaces            (linear algebra)
+   ├── Modules                 (module theory)
+   ├── Lattices                (order theory)
+   ├── CategoryTheory          (functors, morphisms)
+   └── UniversalAlgebra        (general algebraic structures)
+
+4. ANALYSIS (7 aspects)
+   ├── Limits                  (convergence)
+   ├── Continuity              (continuous functions)
+   ├── Derivatives             (differential calculus)
+   ├── Integrals               (integral calculus)
+   ├── Sequences               (sequences and series)
+   ├── MeasureTheory           (measures, integration)
+   └── FunctionalAnalysis      (infinite-dimensional spaces)
+
+5. TOPOLOGY (5 aspects)
+   ├── MetricSpaces            (distance spaces)
+   ├── TopologicalSpaces       (open/closed sets)
+   ├── Compactness             (compact spaces)
+   ├── Connectedness           (connected spaces)
+   └── TopologicalContinuity   (continuity in topology)
+
+6. SET THEORY (5 aspects)
+   ├── SetOperations           (∪, ∩, ⊆, basic operations)
+   ├── Cardinality             (countable, uncountable)
+   ├── Ordinals                (ordinal numbers)
+   ├── AxiomOfChoice           (choice axiom)
+   └── ZFC                     (Zermelo-Fraenkel set theory)
+
+7. TYPE THEORY (6 aspects)
+   ├── DependentTypes          (Π types, dependent functions)
+   ├── Universes               (Type₀, Type₁, hierarchy)
+   ├── InductiveTypes          (data types, induction)
+   ├── CoinductiveTypes        (codata, coinduction)
+   ├── Polymorphism            (generic types)
+   └── TypeEquivalence         (isomorphism, equivalence)
+
+8. COMPUTER SCIENCE (8 aspects)
+   ├── Algorithms              (algorithms, data structures)
+   ├── Complexity              (time/space complexity)
+   ├── FormalVerification      (program correctness)
+   ├── ProgramSemantics        (operational/denotational)
+   ├── Concurrency             (parallel, concurrent systems)
+   ├── Cryptography            (cryptographic proofs)
+   ├── Automata                (automata theory, FSM)
+   └── LambdaCalculus          (λ-calculus)
+
+9. PROOF TECHNIQUES (6 aspects)
+   ├── Induction               (mathematical, structural)
+   ├── Coinduction             (coinductive proofs)
+   ├── Recursion               (recursive definitions)
+   ├── CaseAnalysis            (case splitting)
+   ├── Contradiction           (proof by contradiction)
+   └── DirectProof             (direct construction)
+
+10. OTHER (6 aspects)
+    ├── Combinatorics           (counting, combinations)
+    ├── GraphTheory             (graphs, networks)
+    ├── Probability             (probability theory)
+    ├── GameTheory              (game-theoretic proofs)
+    ├── Geometry                (geometric reasoning)
+    └── AbstractNonsense        (very general categorical)
+
+==================================================
+Total: 60 aspects across 10 categories
+
+Tagging Strategies:
+  • RuleBasedTagger:    100+ keyword rules, 20+ symbol rules
+  • NeuralTagger:       ML-based classification (Julia)
+  • OpenCycTagger:      Ontology-based (OpenCyc)
+  • CompositeTagger:    Combines multiple strategies
+
+Usage: Each theorem can have multiple aspects (multi-label)
+Confidence: Scores range from 0.0 to 1.0 per aspect

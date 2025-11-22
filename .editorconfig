@@ -1,0 +1,80 @@
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+# SPDX-FileCopyrightText: 2024-2025 ECHIDNA Project Contributors
+
+# EditorConfig helps maintain consistent coding styles
+# https://editorconfig.org
+
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Rust files
+[*.rs]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+# Julia files
+[*.jl]
+indent_style = space
+indent_size = 4
+max_line_length = 92
+
+# ReScript files
+[*.res]
+indent_style = space
+indent_size = 2
+
+[*.resi]
+indent_style = space
+indent_size = 2
+
+# Mercury files
+[*.m]
+indent_style = space
+indent_size = 4
+
+# YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# TOML files
+[*.toml]
+indent_style = space
+indent_size = 2
+
+# Markdown files
+[*.md]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Justfile
+[Justfile]
+indent_style = tab
+indent_size = 4
+
+# Containerfile
+[Containerfile]
+indent_style = space
+indent_size = 2
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 2
+
+# Makefiles (if any - should use Justfile instead!)
+[Makefile]
+indent_style = tab
