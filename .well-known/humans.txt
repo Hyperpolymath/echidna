@@ -1,0 +1,107 @@
+# SPDX-FileCopyrightText: 2025 ECHIDNA Project Contributors
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+
+/* TEAM */
+
+Project Lead: ECHIDNA Project Team
+Contact: maintainers@echidna-project.org
+Location: Distributed
+
+/* THANKS */
+
+This project builds on the shoulders of giants:
+- Quill Project - Original Agda neural solver
+- Theorem proving community - Agda, Coq, Lean, Isabelle, Z3, CVC5, Metamath, HOL Light, Mizar, PVS, ACL2, HOL4
+- Rust community - For safe, fast systems programming
+- Julia community - For scientific computing without Python
+- ReScript community - For type-safe UI development
+- OpenCyc - For common-sense reasoning
+- DeepProbLog - For probabilistic logic programming
+
+/* SITE */
+
+Language: Rust, Julia, ReScript, Bash
+Doctype: Neurosymbolic Theorem Proving Platform
+IDE: VS Code, Neovim, Emacs, Helix
+Standards: RSR/CCCP, REUSE, SPDX
+Components: 12 theorem prover backends, neural ML, aspect tagging
+Last update: 2025-11-22
+
+/* SOFTWARE */
+
+Build System: Just (Justfile)
+Container: Podman (NOT Docker)
+CI/CD: GitLab CI/CD
+Security: Trivy, cargo-audit
+Testing: cargo test, proptest, criterion
+Documentation: mdBook, rustdoc, Documenter.jl
+
+/* LICENSES */
+
+Code: MIT AND Palimpsest-0.6
+Documentation: CC BY-SA 4.0
+Data: ODbL (proof examples)
+
+See LICENSES/ directory for full license texts.
+
+/* CONTRIBUTING */
+
+We welcome contributions!
+- Read: CONTRIBUTING.md
+- Code of Conduct: CODE_OF_CONDUCT.md
+- Security: SECURITY.md
+
+Issues: https://gitlab.com/non-initiate/rhodinised/quill/-/issues
+Merge Requests: https://gitlab.com/non-initiate/rhodinised/quill/-/merge_requests
+
+/* CONTACT */
+
+Email: maintainers@echidna-project.org
+Security: security@echidna-project.org
+GitLab: https://gitlab.com/non-initiate/rhodinised/quill
+
+/* CREDITS */
+
+Project Contributors:
+- See AUTHORS.md for complete list
+- See CHANGELOG.md for version history
+- See git log for detailed contribution history
+
+Special Thanks:
+- All theorem prover developers
+- All open-source contributors who made this possible
+- The formal methods community
+
+/* PHILOSOPHY */
+
+ECHIDNA embodies:
+- Neurosymbolic AI: Neural creativity + Symbolic rigor
+- Multi-paradigm: 12 provers, 4 languages, unified interface
+- Offline-first: Works without network
+- Type safety: Rust compile-time guarantees
+- Memory safety: Zero unsafe blocks
+- Community-driven: TPCF Perimeter 3 (Community Sandbox)
+- Dual-licensed: MIT + Palimpsest v0.6 for maximum freedom
+
+/* ARCHITECTURE */
+
+Tier 1 (6 provers): Agda, Coq, Lean, Isabelle, Z3, CVC5
+Tier 2 (3 provers): Metamath, HOL Light, Mizar
+Tier 3 (2 provers): PVS, ACL2
+Tier 4 (1 prover): HOL4
+
+Neural ML: Graph Neural Networks + Transformers (Julia, NO PYTHON)
+UI: ReScript + Deno for type-safe, modern interface
+Core: Rust for safety, speed, and WASM compilation
+
+/* INSPIRATION */
+
+"The best way to predict the future is to invent it." - Alan Kay
+"Programs must be written for people to read, and only incidentally for machines to execute." - Abelson & Sussman
+"Make it work, make it right, make it fast." - Kent Beck
+
+---
+
+This file follows the humans.txt standard: http://humanstxt.org/
+Last updated: 2025-11-22
+Version: 1.0

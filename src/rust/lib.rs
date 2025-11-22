@@ -11,9 +11,11 @@ pub mod provers;
 pub mod parsers;
 pub mod neural;
 pub mod aspect;
+pub mod agent;
 
 pub use core::{ProofState, Term, Tactic, TacticResult};
 pub use provers::{ProverBackend, ProverKind, ProverConfig};
+pub use agent::{AgentCore, AgentConfig};
 
 #[cfg(test)]
 mod tests {

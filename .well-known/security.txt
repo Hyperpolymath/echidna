@@ -1,0 +1,62 @@
+# SPDX-FileCopyrightText: 2025 ECHIDNA Project Contributors
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+
+Contact: mailto:security@echidna-project.org
+Expires: 2026-11-22T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://gitlab.com/non-initiate/rhodinised/quill/-/raw/main/.well-known/security.txt
+
+# Security Policy
+
+This file complies with RFC 9116: https://www.rfc-editor.org/rfc/rfc9116.html
+
+## Reporting Security Issues
+
+If you discover a security vulnerability, please report it to:
+- Email: security@echidna-project.org
+- Encryption: GPG key available at https://gitlab.com/non-initiate/rhodinised/quill/-/blob/main/SECURITY.md
+
+Please do NOT report security vulnerabilities through public GitLab issues.
+
+## Scope
+
+Security issues in the following components are in scope:
+- Rust core (src/rust/)
+- Julia ML components (src/julia/)
+- ReScript UI (src/rescript/)
+- Prover backends (all 12 provers)
+- Build system (Justfile, CI/CD)
+- Container images (Containerfile)
+
+## Out of Scope
+
+- Issues in third-party dependencies (report to upstream)
+- Social engineering attacks
+- Physical attacks
+
+## Response Timeline
+
+- Acknowledgment: Within 48 hours
+- Initial assessment: Within 1 week
+- Fix development: Within 30 days (depends on severity)
+- Public disclosure: Coordinated with reporter
+
+## Security Updates
+
+Security updates are published in:
+- CHANGELOG.md
+- GitLab Security Advisories
+- Email to security@echidna-project.org subscribers
+
+## PGP Key
+
+Fingerprint: [To be added]
+Key server: https://keys.openpgp.org
+
+## Acknowledgments
+
+We thank security researchers who report vulnerabilities responsibly.
+See SECURITY.md for our hall of fame.
+
+---
+Last updated: 2025-11-22

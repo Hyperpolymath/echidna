@@ -48,6 +48,13 @@ reqwest = { version = "0.11", features = ["json"] }
 # REPL
 rustyline = "13.0"
 
+# Time handling
+chrono = "0.4"
+
+# Actor framework for multi-agent
+actix = "0.13"
+actix-rt = "2.9"
+
 # Terminal colors and formatting
 colored = "2.1"
 indicatif = "0.17"

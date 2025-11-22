@@ -1,0 +1,125 @@
+# SPDX-FileCopyrightText: 2025 ECHIDNA Project Contributors
+# SPDX-License-Identifier: MIT AND Palimpsest-0.6
+
+# AI Training Policy for ECHIDNA
+
+## Summary
+
+This project's code, documentation, and associated materials are:
+- ✅ **ALLOWED** for AI training by open-source models
+- ❌ **NOT ALLOWED** for AI training by proprietary/closed-source models
+- ✅ **ALLOWED** for AI-assisted development tools (GitHub Copilot, Cursor, etc.)
+- ✅ **ALLOWED** for research purposes with attribution
+
+## Detailed Policy
+
+### Permitted Uses
+
+1. **Open-Source AI Models**: Training data for models with:
+   - Open-source licenses (Apache, MIT, GPL, etc.)
+   - Public weights and architecture
+   - Reproducible training pipelines
+   - Examples: LLaMA, GPT-J, BLOOM, Mistral (open variants)
+
+2. **AI-Assisted Development**: Use in:
+   - Code completion (Copilot, Tabnine, Kite)
+   - Code analysis (SonarQube, CodeClimate)
+   - Documentation generation (with human review)
+
+3. **Academic Research**: With proper citation:
+   - Machine learning research
+   - Software engineering studies
+   - Program synthesis
+   - Automated theorem proving
+
+### Prohibited Uses
+
+1. **Proprietary AI Models**: NO training for:
+   - Closed-source commercial models
+   - Models without public weights
+   - Non-reproducible training
+   - Examples: GPT-4, Claude (without explicit permission)
+
+2. **Commercial Use Without Attribution**:
+   - Training proprietary code generation tools
+   - Creating derivative works without credit
+
+### Attribution Requirements
+
+If using this code for AI training or research:
+
+```
+Citation:
+  Title: ECHIDNA - Extensible Cognitive Hybrid Intelligence for Deductive Neural Assistance
+  Authors: ECHIDNA Project Contributors
+  Year: 2025
+  URL: https://gitlab.com/non-initiate/rhodinised/quill
+  License: MIT AND Palimpsest-0.6
+```
+
+### Technical Measures
+
+This repository includes:
+- `robots.txt` with AI crawler directives
+- `.well-known/ai.txt` (this file) for explicit policies
+- License headers on all files (SPDX)
+
+### Enforcement
+
+Violations of this policy:
+- Contact: security@echidna-project.org
+- We reserve the right to:
+  - Request removal from training datasets
+  - Pursue legal action for license violations
+  - Report to relevant authorities
+
+### Rationale
+
+We support open-source AI while protecting against:
+- Proprietary capture of community work
+- Non-attributable use of our labor
+- Closed ecosystems built on open foundations
+
+### Updates
+
+This policy may be updated. Check:
+- Version: 1.0
+- Last updated: 2025-11-22
+- Canonical URL: https://gitlab.com/non-initiate/rhodinised/quill/-/blob/main/.well-known/ai.txt
+
+### Contact
+
+Questions about this policy:
+- Email: maintainers@echidna-project.org
+- GitLab: https://gitlab.com/non-initiate/rhodinised/quill/-/issues
+
+---
+
+## Machine-Readable Metadata
+
+```json
+{
+  "ai-training-policy": {
+    "version": "1.0",
+    "last-updated": "2025-11-22",
+    "allowed": {
+      "open-source-models": true,
+      "research": true,
+      "developer-tools": true
+    },
+    "prohibited": {
+      "proprietary-models": true,
+      "commercial-without-attribution": true
+    },
+    "attribution-required": true,
+    "license": ["MIT", "Palimpsest-0.6"],
+    "contact": "security@echidna-project.org"
+  }
+}
+```
+
+---
+
+**License**: MIT AND Palimpsest-0.6
+**Contact**: security@echidna-project.org
+**Repository**: https://gitlab.com/non-initiate/rhodinised/quill

@@ -53,6 +53,13 @@ Coverage = "a2441757-f6aa-5fb2-8edb-039e3f45d037"
 Gen = "ea4f424c-a589-11e8-07c0-fd5c91b9da4a"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 
+# Reinforcement Learning (for agentic feedback loop)
+ReinforcementLearning = "158674fc-8238-5cab-b5ba-03dfc80d1318"
+ReinforcementLearningBase = "e575027e-6cd6-5018-9292-cdc6200d2b44"
+
+# Database (for proof memory)
+SQLite = "0aa819cd-b072-5ff4-a722-6bc24af294d9"
+
 # Prover-Specific Parsers
 REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 Parsers = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
@@ -67,3 +74,6 @@ JSON3 = "1.14"
 DataFrames = "1.6"
 Aqua = "0.8"
 JET = "0.8"
+Gen = "0.4"
+ReinforcementLearning = "0.11"
+SQLite = "1.6"
