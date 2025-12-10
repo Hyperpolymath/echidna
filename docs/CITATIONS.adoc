@@ -1,0 +1,36 @@
+= echidna - Citation Guide
+:toc:
+
+== BibTeX
+
+[source,bibtex]
+----
+@software{echidna_2025,
+  author = {Polymath, Hyper},
+  title = {echidna},
+  year = {2025},
+  url = {https://github.com/hyperpolymath/echidna},
+  license = {AGPL-3.0-or-later}
+}
+----
+
+== Harvard Style
+
+Polymath, H. (2025) _echidna_ [Computer software]. Available at: https://github.com/hyperpolymath/echidna
+
+== OSCOLA
+
+Hyper Polymath, 'echidna' (2025) <https://github.com/hyperpolymath/echidna>
+
+== MLA
+
+Polymath, Hyper. "echidna." 2025, github.com/hyperpolymath/echidna.
+
+== APA 7
+
+Polymath, H. (2025). _echidna_ [Computer software]. GitHub. https://github.com/hyperpolymath/echidna
+
+== See Also
+
+* link:../CITATION.cff[CITATION.cff]
+* link:../codemeta.json[codemeta.json]
