@@ -460,7 +460,7 @@ Tests cover:
 export ECHIDNA_PROOF_DB="proofs.db"
 
 # ConceptNet API
-export CONCEPTNET_API_BASE="http://api.conceptnet.io"
+export CONCEPTNET_API_BASE="https://api.conceptnet.io"
 
 # Model paths
 export ECHIDNA_RL_MODEL="models/rl_agent.bson"

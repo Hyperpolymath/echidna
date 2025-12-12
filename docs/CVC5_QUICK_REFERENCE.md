@@ -387,7 +387,7 @@ cvc5 problem.smt2
 - [Full Implementation Details](/home/user/echidna/docs/CVC5_IMPLEMENTATION.md)
 - [Implementation Summary](/home/user/echidna/CVC5_IMPLEMENTATION_SUMMARY.md)
 - [CVC5 Documentation](https://cvc5.github.io/docs/latest/)
-- [SMT-LIB Standard](http://smtlib.cs.uiowa.edu/)
+- [SMT-LIB Standard](https://smtlib.cs.uiowa.edu/)
 
 ---
 

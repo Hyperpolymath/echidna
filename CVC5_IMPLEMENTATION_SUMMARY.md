@@ -448,7 +448,7 @@ SPDX: `MIT OR Palimpsest-0.6`
 
 - [CVC5 Official Site](https://cvc5.github.io/)
 - [CVC5 Documentation](https://cvc5.github.io/docs/latest/)
-- [SMT-LIB 2.0 Standard](http://smtlib.cs.uiowa.edu/)
+- [SMT-LIB 2.0 Standard](https://smtlib.cs.uiowa.edu/)
 - [CVC5 GitHub](https://github.com/cvc5/cvc5)
 - [String Theory in CVC5](https://cvc5.github.io/docs/latest/theories/strings.html)
 - [Separation Logic in CVC5](https://cvc5.github.io/docs/latest/theories/separation-logic.html)

@@ -4,14 +4,14 @@
 //! ConceptNet Integration - Common-sense knowledge augmentation
 //!
 //! ConceptNet is a lightweight alternative to OpenCyc for semantic knowledge.
-//! REST API: http://api.conceptnet.io/
+//! REST API: https://api.conceptnet.io/
 
 use anyhow::Result;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use tracing::{debug, info};
 
-const CONCEPTNET_API_BASE: &str = "http://api.conceptnet.io";
+const CONCEPTNET_API_BASE: &str = "https://api.conceptnet.io";
 
 /// A ConceptNet edge (relationship between concepts)
 #[derive(Debug, Clone, Serialize, Deserialize)]

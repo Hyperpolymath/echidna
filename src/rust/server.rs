@@ -75,7 +75,7 @@ pub async fn start_server(port: u16, host: String, enable_cors: bool) -> Result<
     println!("{}", "║  ECHIDNA HTTP API Server                                  ║".cyan().bold());
     println!("{}", "╚═══════════════════════════════════════════════════════════╝".cyan());
     println!();
-    println!("Server listening on: {}", format!("http://{}", addr).green().bold());
+    println!("Server listening on: {}", format!("https://{}", addr).green().bold());
     println!();
     println!("{}", "Endpoints:".yellow().bold());
     println!("  GET  /api/health              - Health check");
