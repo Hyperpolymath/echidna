@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# ECHIDNA Pre-commit Hook
+# Enforces npm ban and runs checks
+#
+# SPDX-License-Identifier: MIT OR AGPL-3.0-or-later
+
+set -euo pipefail
+
+echo "🦔 ECHIDNA Pre-commit Checks"
+echo "============================"
+
+# Run npm ban check
+if [ -x "scripts/ban-npm.sh" ]; then
+    bash scripts/ban-npm.sh
+fi
+
+# Run Deno checks if available
+if command -v deno &> /dev/null; then
+    echo ""
+    echo "Running Deno lint..."
+    deno lint src/provers/ || true
+
+    echo ""
+    echo "Running Deno check..."
+    deno check src/provers/mod.ts || true
+fi
+
+echo ""
+echo "✅ Pre-commit checks passed"

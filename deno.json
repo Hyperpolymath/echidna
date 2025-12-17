@@ -1,0 +1,75 @@
+{
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "name": "@echidna/provers",
+  "version": "0.1.0",
+  "description": "ECHIDNA - Neurosymbolic Theorem Proving Platform",
+  "license": "MIT OR AGPL-3.0-or-later",
+
+  "compilerOptions": {
+    "allowJs": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+
+  "imports": {
+    "@std/": "https://deno.land/std@0.224.0/",
+    "@echidna/provers": "./src/provers/mod.ts"
+  },
+
+  "tasks": {
+    "check": "deno check src/provers/mod.ts",
+    "lint": "deno lint src/",
+    "fmt": "deno fmt src/",
+    "test": "deno test --allow-net --allow-read --allow-env src/",
+
+    "health": "deno run --allow-net --allow-env src/provers/runners/cli.ts --health",
+    "solve": "deno run --allow-net --allow-read --allow-write --allow-env src/provers/runners/cli.ts --solve",
+    "batch": "deno run --allow-net --allow-read --allow-write --allow-env src/provers/runners/cli.ts --batch",
+    "daemon": "deno run --allow-net --allow-read --allow-write --allow-env src/provers/runners/cli.ts --daemon",
+
+    "ban-npm": "echo '❌ npm is BANNED in this project. Use Deno!' && exit 1",
+
+    "dev:ui": "cd src/rescript && deno task dev",
+    "build:ui": "cd src/rescript && deno task build"
+  },
+
+  "fmt": {
+    "include": ["src/"],
+    "exclude": ["src/rescript/node_modules/"],
+    "options": {
+      "useTabs": false,
+      "lineWidth": 100,
+      "indentWidth": 2,
+      "singleQuote": false,
+      "proseWrap": "preserve"
+    }
+  },
+
+  "lint": {
+    "include": ["src/"],
+    "exclude": ["src/rescript/node_modules/"],
+    "rules": {
+      "tags": ["recommended"],
+      "include": [
+        "ban-untagged-todo",
+        "no-sync-fn-in-async-fn",
+        "single-var-declarator"
+      ],
+      "exclude": []
+    }
+  },
+
+  "test": {
+    "include": ["src/**/*_test.ts", "src/**/*.test.ts"],
+    "exclude": ["src/rescript/"]
+  },
+
+  "publish": {
+    "include": ["src/provers/", "README.md", "LICENSE"],
+    "exclude": ["**/*_test.ts", "**/*.test.ts"]
+  },
+
+  "nodeModulesDir": "none"
+}
