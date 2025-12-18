@@ -1,5 +1,5 @@
-# RSR Anti-Pattern CI Check
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# RSR Anti-Pattern CI Check
 #
 # Enforces: No TypeScript, No Go, No Python (except SaltStack), No npm
 # Allows: ReScript, Deno, WASM, Rust, OCaml, Haskell, Guile/Scheme
@@ -12,11 +12,15 @@ on:
   pull_request:
     branches: [main, master, develop]
 
+permissions: read-all
+
 jobs:
   antipattern-check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Check for TypeScript
         run: |
