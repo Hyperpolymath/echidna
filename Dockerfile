@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT OR Palimpsest-0.6
 # SPDX-FileCopyrightText: 2025 ECHIDNA Project Contributors
 
-FROM rust:1.83-slim-bookworm AS builder
+FROM rust:1.85-slim-bookworm AS builder
 
 WORKDIR /build
 
