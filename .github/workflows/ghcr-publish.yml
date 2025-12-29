@@ -49,7 +49,7 @@ jobs:
 
       - name: Build image
         run: |
-          sudo nerdctl build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          sudo nerdctl build -f Containerfile -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
           sudo nerdctl tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Push image
