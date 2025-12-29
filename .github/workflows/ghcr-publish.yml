@@ -39,6 +39,10 @@ jobs:
           sudo mkdir -p /opt/cni/bin
           sudo cp /usr/local/libexec/cni/* /opt/cni/bin/ 2>/dev/null || true
 
+          # Start buildkitd daemon
+          sudo /usr/local/bin/buildkitd &
+          sleep 3
+
       - name: Log in to GHCR
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | sudo nerdctl login ghcr.io -u ${{ github.actor }} --password-stdin
