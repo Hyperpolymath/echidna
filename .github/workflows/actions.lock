@@ -63,6 +63,9 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/deploy-pages@v5.0.0'
         - 'actions/upload-pages-artifact@v5.0.0'
+    '.github/workflows/proof-safety.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'swatinem/rust-cache@v2.9.2'
     '.github/workflows/rust-ci.yml': []
     '.github/workflows/s4-loop.yml':
         - 'actions/checkout@v7.0.1'
