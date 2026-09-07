@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
 # This workflow is managed by gh actions-lock.
+# This workflow is managed by gh actions-lock.
 # Estate SPARK Theatre Gate — thin caller of the reusable workflow in
 # hyperpolymath/standards (#135 / #141). Pinned by commit SHA per the
 # estate action-pinning policy. Regenerate the pin only when the reusable

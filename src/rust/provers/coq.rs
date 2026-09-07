@@ -945,8 +945,10 @@ impl ProverBackend for CoqBackend {
             return Ok(output.status.success());
         }
         if let Some(source) = state.metadata.get("coq_source").and_then(|v| v.as_str()) {
-            let temp_file =
-                std::env::temp_dir().join(format!("echidna_coq_verify_{}.v", uuid::Uuid::new_v4()));
+            let temp_file = std::env::temp_dir().join(format!(
+                "echidna_coq_verify_{}.v",
+                uuid::Uuid::new_v4().simple()
+            ));
             tokio::fs::write(&temp_file, source)
                 .await
                 .context("Failed to write temp file")?;

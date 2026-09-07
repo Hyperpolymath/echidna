@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
 # This workflow is managed by gh actions-lock.
+# This workflow is managed by gh actions-lock.
+# This workflow is managed by gh actions-lock.
 # Rust CI — thin wrapper calling the shared estate reusable in
 # hyperpolymath/standards. Configure once, propagate everywhere.
 # See: docs/CI-REUSABLE-WORKFLOWS.adoc in standards.
@@ -17,7 +19,7 @@ permissions:
 
 jobs:
   rust-ci:
-    uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@571cc734cd69fb846032ec77a662aa8ee4fc32cd # main 2026-08-04 (lockfile-bearing ref: actions.lock required by caller-side enforcement, standards#570)
+    uses: ./.github/workflows/rust-native-reusable.yml # main 2026-08-04 (lockfile-bearing ref: actions.lock required by caller-side enforcement, standards#570)
     with:
       enable_audit: true
       enable_coverage: true

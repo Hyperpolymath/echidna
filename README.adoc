@@ -217,8 +217,7 @@ Optional, by component:
 * *Zig* >= 0.13.0 — FFI bridge (`+ffi/zig/+`, `+src/zig_ffi/+`)
 * *Chapel* — optional parallel proof dispatch (`+src/chapel/+`,
 `+--features+` `+chapel+`)
-* *Deno* >= 2.0 — AffineScript / AffineScript UI (`+src/affinescript/+`,
-`+src/ui/+`)
+* *Bun* — estate JavaScript runtime; UI sources are in `+src/ui/+`.
 
 Run `+just+` `+doctor+` to verify what’s actually installed; `+just+`
 `+heal+` will offer to install missing pieces non-destructively.
@@ -286,7 +285,7 @@ podman run -it echidna:latest
 * *Rust*: Core logic, prover backends, trust pipeline, CLI, REPL, API
 servers
 * *Julia*: ML inference (tactic prediction, premise selection)
-* *AffineScript + Deno*: UI components
+* *AffineScript-TEA*: UI sources in `src/ui/tea/` (compile pipeline unavailable); working static shell in `src/ui/public/`
 * *Chapel*: Optional parallel proof dispatch
 
 === Key Modules
@@ -545,7 +544,7 @@ total-order proofs, in-range round-trip lemmas), `+Provers+`,
 (`+tryProver+`) and L2.3 cancel-token preemption.
 * *Wave-3 container infrastructure*: 8-cell weekly cron building each
 Tier-3 prover image with stub-sentinel detection.
-* *Estate migrations in flight*: AffineScript→AffineScript UI; npm→Deno
+* *Estate migrations in flight*: AffineScript-TEA UI compilation; legacy JavaScript runtime→Bun
 for `+echidna-playground+`; CI workflow consolidation under the
 governance ruleset.
 

@@ -115,7 +115,7 @@ Stage 7  Sovereign tooling surround         the rest of the ecosystem
     7c  Selur scheduler
     7d  Svalinn trust boundary
     7e  Cerro‑Torre observability
-    7f  AffineScript‑TEA frontend           src/affinescript/, ≥33 modules
+    7f  AffineScript‑TEA frontend           src/ui/, ≥33 modules
     7g  LOL i18n                            locale/ + t!() macro
     7h  Zig ABI 16‑endpoint surface         src/zig/echidna_abi.zig
 
@@ -167,7 +167,7 @@ named as a versioned dependency in Cargo.toml or the container
 definition, wired into its role
 
 |"`AffineScript‑TEA frontend`" |Not present (10 `+.res+` files stub)
-|*`+src/affinescript/+`* holds ≥33 AffineScript‑TEA modules, persistent
+|*`+src/ui/+`* holds ≥33 AffineScript‑TEA modules, persistent
 Model → Msg → Update loop, talks to core over Cap’n Proto WebSocket
 
 |"`LOL i18n`" |Not present |*`+locale/+`* with LOL‑sourced translations;

@@ -1,3 +1,5 @@
+NOTE: Historical document. `retired-affinescript` denotes the former UI source tree, which is absent from the current checkout. Commands and file-level examples using it are archival, not current build instructions. Current UI sources are in `src/ui/`; use the root Justfile for supported commands.
+
 == Debt register
 
 Known, measured debt in this repository: licensing, documentation, and
@@ -106,7 +108,7 @@ because each is a distinct class worth re-checking after any future
 licence change:
 
 [arabic]
-. *Stale `+MIT+` grants.* `+src/affinescript/.gitignore+`,
+. *Stale `+MIT+` grants.* `+retired-affinescript/.gitignore+`,
 `+styles/main.css+` and `+tailwind.config.js+` still declared
 `+MIT OR Palimpsest-0.6+` — pre-dating even the MPL migration. Removing
 only the Palimpsest half would have left them *MIT*. Now
@@ -118,9 +120,9 @@ line for a header sweep to match. Eight declared MPL-2.0:
 `+stapeln.toml+`, `+container/manifest.toml+`, three Ada `+alire.toml+`
 manifests under `+spark/+`,
 `+.machine_readable/descriptiles/META.a2ml+`, and
-`+0-AI-MANIFEST.a2ml+`. Plus a *nested `+src/affinescript/.reuse/dep5+`*
+`+0-AI-MANIFEST.a2ml+`. Plus a *nested `+retired-affinescript/.reuse/dep5+`*
 declaring `+MIT OR    Palimpsest-0.6+` for the UI sub-tree.
-. *A user-facing licence string.* `+src/affinescript/src/Main.res+`
+. *A user-facing licence string.* `+retired-affinescript/src/Main.res+`
 rendered `+"MIT OR Palimpsest-0.6 License"+` in the UI — a false licence
 statement shown to users, invisible to every header-based check.
 . *OCI image labels* — 16
@@ -282,7 +284,7 @@ repointed.
 
 ==== C1. AffineScript — removed 2026-08
 
-The 37 AffineScript files (24 in `+src/affinescript/+`, 13 orphaned
+The 37 AffineScript files (24 in `+retired-affinescript/+`, 13 orphaned
 `+.res+` prover clients in `+src/provers/+`) were deleted, along with
 the build and CI wiring that referenced them. AffineScript is a banned
 language under the estate policy.

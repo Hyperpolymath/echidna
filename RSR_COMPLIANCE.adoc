@@ -53,7 +53,7 @@ ECHIDNA diverges from the strict RSR template in three places:
    migration documented in `.claude/CLAUDE.md`.
 2. *Polyglot source layout*: `src/` contains per-language subdirectories
    (`src/rust/`, `src/julia/`, `src/abi/`, `src/chapel/`, `src/zig_ffi/`,
-   `src/ada/`, `src/affinescript/`, `src/ui/`, `src/interfaces/`) rather than
+   `src/ada/`, `src/ui/`, `src/interfaces/`) rather than
    a single language tree. The split is intentional — see CLAUDE.md.
 3. *Extracted Rust crates*: workspace-member crates live in `crates/`
    alongside `src/rust/`. The split between `src/rust/` (binary + main

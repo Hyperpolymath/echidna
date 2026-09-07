@@ -1,3 +1,5 @@
+NOTE: Historical document. `retired-affinescript` denotes the former UI source tree, which is absent from the current checkout. Commands and file-level examples using it are archival, not current build instructions. Current UI sources are in `src/ui/`; use the root Justfile for supported commands.
+
 == ECHIDNA v1.3 Release Notes
 
 *Release Date:* 2026-01-29 *Tag:* v1.3.0 *Status:* Production Ready -
@@ -140,7 +142,7 @@ API usage - Troubleshooting guide - Development workflow
 ----
 julia src/julia/api_server.jl &
 ./target/release/echidna server --port 8081 --enable-cors &
-cd src/affinescript && python3 -m http.server 3000 &
+cd retired-affinescript && python3 -m http.server 3000 &
 ----
 
 *Access:* http://127.0.0.1:3000
@@ -258,7 +260,7 @@ only)
 ==== Production Checklist
 
 * [ ] Build Rust in release mode: `+cargo build --release+`
-* [ ] Compile AffineScript UI: `+cd src/affinescript && npm run build+`
+* [ ] Compile AffineScript UI: `+cd retired-affinescript && npm run build+`
 * [ ] Train models if needed: `+julia src/julia/train_models.jl+`
 * [ ] Start Julia ML API: `+julia src/julia/api_server.jl+`
 * [ ] Start Rust backend:
@@ -299,7 +301,7 @@ services:
 . Install Julia packages:
 `+julia -e 'using Pkg; Pkg.add(["HTTP", "JSON3"])'+`
 . Rebuild Rust: `+cargo build --release+`
-. Rebuild AffineScript: `+cd src/affinescript && npm run build+`
+. Rebuild AffineScript: `+cd retired-affinescript && npm run build+`
 . Start services (see Quick Start)
 . Run tests: `+./tests/integration_test.sh+`
 
@@ -313,7 +315,7 @@ repo root)
 `+http://127.0.0.1:9000+` (hardcoded in server.rs:48)
 
 *AffineScript UI:* - API base: `+http://localhost:8081/api+`
-(src/affinescript/src/api/Client.res:12)
+(retired-affinescript/src/api/Client.res:12)
 
 === Contributors
 

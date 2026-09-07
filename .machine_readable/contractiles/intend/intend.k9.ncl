@@ -30,7 +30,7 @@ K9!
 #   (feedback_audit_tool_suppression_design.md — structural > markers).
 # * Sessional drift detection hooks (on_close, on_open).
 # * Ratification at session open; drift log at session close.
-# * Evidence sinks: VeriSimDB (queryable) + 6a2/DRIFT.a2ml (repo-local).
+# * Evidence sinks: VeriSimDB (queryable) + descriptiles/DRIFT.a2ml (repo-local).
 # * Failure-mode defenses cross-referenced to the AI failure catalog.
 
 let base_k9 = import "../k9/template-hunt.k9.ncl" in
@@ -66,6 +66,7 @@ let base    = import "../_base.ncl" in
 
     security = {
       leash = 'Hunt,
+      signature_required = true,
       trust_level = "subprocess + filesystem-read",
       allow_network = false,
       allow_filesystem_write = false,   # evidence sinks are indirected
@@ -120,7 +121,7 @@ let base    = import "../_base.ncl" in
     # VeriSimDB = queryable machine record (feedback_verisimdb_policy.md);
     # ECHIDNA records every proof attempt to VeriSimDB, so contractile
     # executions land in the same store for cross-query.
-    # 6a2/DRIFT.a2ml = repo-local append-only drift log (feedback_sessional_
+    # descriptiles/DRIFT.a2ml = repo-local append-only drift log (feedback_sessional_
     # drift_detection.md + user_6a2_is_contractile_ought.md descriptive role).
     evidence_sinks = [
       {
@@ -130,7 +131,7 @@ let base    = import "../_base.ncl" in
       },
       {
         kind        = 'drift_log,
-        path        = ".machine_readable/6a2/DRIFT.a2ml",
+        path        = ".machine_readable/descriptiles/DRIFT.a2ml",
         append_only = true,
       },
     ],
@@ -222,7 +223,7 @@ let base    = import "../_base.ncl" in
             # the AI is the holder of the line against enthusiasm drift.
           },
         ],
-        signed_record_destination = ".machine_readable/6a2/ratification-<session-id>.a2ml",
+        signed_record_destination = ".machine_readable/descriptiles/ratification-<session-id>.a2ml",
         must_precede_work = true,
       },
 

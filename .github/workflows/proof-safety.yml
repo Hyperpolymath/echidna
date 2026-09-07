@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# This workflow is managed by gh actions-lock.
+name: Proof Safety
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: proof-safety-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  proof-safety:
+    name: Proof safety regressions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Swatinem/rust-cache@v2.9.2
+      - name: Install required native provers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coq z3 cvc5 capnproto pkg-config libssl-dev
+          command -v coqc
+          command -v z3
+          command -v cvc5
+      - name: Require accepted and rejected proofs through the live service
+        run: cargo test --locked --features live-provers --test live_service_regressions -- --nocapture

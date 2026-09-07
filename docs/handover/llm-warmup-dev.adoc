@@ -1,3 +1,5 @@
+NOTE: Historical document. `retired-affinescript` denotes the former UI source tree, which is absent from the current checkout. Commands and file-level examples using it are archival, not current build instructions. Current UI sources are in `src/ui/`; use the root Justfile for supported commands.
+
 == ECHIDNA — Developer Context
 
 === Architecture
@@ -110,7 +112,7 @@ Flux.jl Transformer models.
 
 4 shared libraries. Bridges Idris2 ABI to C ABI.
 
-==== AffineScript UI (src/affinescript/)
+==== AffineScript UI (retired-affinescript/)
 
 33 .res files. Deno runtime. Zero TypeScript.
 

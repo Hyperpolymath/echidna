@@ -124,7 +124,7 @@ pub mod z3;
 pub mod zipperposition;
 
 /// Enumeration of all supported provers
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, strum::EnumIter)]
 pub enum ProverKind {
     // Tier 1: Original + SMT solvers
     Agda,

@@ -329,11 +329,7 @@ impl ExplanationGenerator {
                     self.format_term(body)
                 )
             },
-            Term::Match {
-                scrutinee,
-                branches: _,
-                ..
-            } => {
+            Term::Match { scrutinee, .. } => {
                 format!("match {} with ...", self.format_term(scrutinee))
             },
             Term::Fix { name, body, .. } => {

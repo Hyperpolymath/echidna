@@ -46,8 +46,7 @@ Optional, by component (only needed if you exercise that surface):
 * Julia >= 1.10 — ML layer in `src/julia/`
 * Chapel — optional parallel proof dispatch in `src/chapel/`
   (built behind `--features chapel`)
-* Deno >= 2.0 — AffineScript / AffineScript UI in `src/affinescript/`,
-  `src/ui/`
+* Bun — estate JavaScript runtime; UI sources are in `src/ui/`.
 
 Run `just doctor` to see what is and isn't present; `just heal`
 offers to install missing pieces non-destructively.

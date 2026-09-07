@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 # Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 #
 # formal-verification.yml — Creusot formal verification of the trust-pipeline kernel.
@@ -52,7 +51,7 @@ jobs:
         uses: actions/checkout@v7.0.1
 
       - name: Install stable Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@master
         with:
           toolchain: stable
 
@@ -83,7 +82,7 @@ jobs:
         uses: actions/checkout@v7.0.1
 
       - name: Install nightly Rust toolchain (Creusot pin)
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@master
         with:
           # Pin matches crates/echidna-core-spark/rust-toolchain.toml.
           # Update both files together when bumping.
