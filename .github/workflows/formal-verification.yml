@@ -56,7 +56,7 @@ jobs:
           toolchain: stable
 
       - name: Cache Rust build artefacts
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
         with:
           workspaces: ". -> target"
 

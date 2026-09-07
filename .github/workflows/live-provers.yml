@@ -83,7 +83,7 @@ jobs:
           toolchain: stable
 
       - name: Cache Cargo
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
 
       - name: Provision prover (${{ matrix.backend }})
         run: |
@@ -177,7 +177,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort via apt / upstream release)
         continue-on-error: true
         run: |
@@ -327,7 +327,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort)
         continue-on-error: true
         run: |
@@ -457,7 +457,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort, CUDA/OpenCL required)
         continue-on-error: true
         run: |

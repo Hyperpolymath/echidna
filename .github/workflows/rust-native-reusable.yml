@@ -194,7 +194,7 @@ jobs:
           version: ${{ inputs.zig_version }}
 
       - name: Cache cargo registry and build
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
         with:
           workspaces: ${{ inputs.working_directory }}
 
@@ -247,7 +247,7 @@ jobs:
           version: ${{ inputs.zig_version }}
 
       - name: Cache cargo registry and build
-        uses: swatinem/rust-cache@v2.9.2
+        uses: Swatinem/rust-cache@v2.9.2
         with:
           workspaces: ${{ inputs.working_directory }}
 
