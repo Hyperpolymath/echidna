@@ -534,11 +534,7 @@ async fn verify_handler(Json(req): Json<VerifyRequest>) -> Result<Json<VerifyRes
         // A completed SMT query is not necessarily a discharged obligation.
         // Only unsat closes a query interpreted as the negated obligation.
         let verified = raw.valid && matches!(smt_status.as_deref(), Some("unsat"));
-        let outcome_str = if verified {
-            "PROVED"
-        } else {
-            "NO_PROOF_FOUND"
-        };
+        let outcome_str = if verified { "PROVED" } else { "NO_PROOF_FOUND" };
         return Ok(Json(VerifyResponse {
             valid: verified,
             outcome: outcome_str.to_string(),

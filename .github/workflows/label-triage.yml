@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: MPL-2.0
+# This workflow is managed by gh actions-lock.
 name: Label Triage
 
 # Classify newly-filed issues against the estate label taxonomy.

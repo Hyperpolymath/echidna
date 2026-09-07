@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
 # This workflow is managed by gh actions-lock.
+# This workflow is managed by gh actions-lock.
 # Prevention workflow - validates all workflows have proper security config
 name: Workflow Security Linter
 

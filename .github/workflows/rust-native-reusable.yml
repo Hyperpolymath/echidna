@@ -1,0 +1,360 @@
+# SPDX-License-Identifier: MPL-2.0
+# This workflow is managed by gh actions-lock.
+# Derived from hyperpolymath/standards@571cc734cd69fb846032ec77a662aa8ee4fc32cd.
+# Native workspace variant installs schema compilers before check/test/coverage.
+# This workflow is managed by gh actions-lock.
+# rust-ci-reusable.yml — Reusable Rust CI bundle (RSR).
+#
+# Replaces the per-repo `rust-ci.yml` template that copy-drifted across
+# the estate. Estate audit (2026-05-26) found:
+#
+#   * 137 repos shipping their own copy of rust-ci.yml
+#   * 30 unique SHAs — same logical workflow, drifted independently
+#   * Recurring failure modes across PRs: missing top-level
+#     `permissions:`, inconsistent `if: hashFiles('Cargo.toml')`
+#     guards, `cargo audit` re-installing every run, license-header
+#     drift (PMPL/MPL/AGPL), inconsistent SHA pins.
+#
+# The reusable bundles the union of features observed across the
+# variants and gates the slow extras (audit, coverage) behind opt-in
+# inputs so consumers only pay for what they want.
+#
+# Caller example (single wrapper, mirrors governance.yml + deno-ci.yml):
+#
+#   jobs:
+#     rust-ci:
+#       uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@70cdad0e95bb2366a9b2ae9789c0e377fef6e3ef
+#
+# With audit + coverage enabled:
+#
+#   jobs:
+#     rust-ci:
+#       uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@70cdad0e95bb2366a9b2ae9789c0e377fef6e3ef
+#       with:
+#         enable_audit: true
+#         enable_coverage: true
+#         zig_version: "0.15.2" # for Rust crates with a Zig-native build
+#
+# Sub-crate / monorepo workspace (Cargo.toml lives in a subdirectory):
+#
+#   jobs:
+#     rust-ci-cli:
+#       uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@70cdad0e95bb2366a9b2ae9789c0e377fef6e3ef
+#       with:
+#         working_directory: crates/cli
+#     rust-ci-server:
+#       uses: hyperpolymath/standards/.github/workflows/rust-ci-reusable.yml@70cdad0e95bb2366a9b2ae9789c0e377fef6e3ef
+#       with:
+#         working_directory: crates/server
+#
+# Out-of-scope (left bespoke per-repo): multi-OS matrices, cross-compile
+# (`cross build`), multi-Rust-version matrices. Each has too much per-repo
+# variance to share a single abstraction cleanly (verified against the 5
+# matrix-using repos as of 2026-05-26: julia-the-viper / verisimdb /
+# verisimiser / reasonably-good-token-vault use four different matrix
+# dimensions).
+
+name: Rust CI (native workspace)
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        description: Runner label for all Rust CI jobs
+        type: string
+        required: false
+        default: ubuntu-latest
+      enable_audit:
+        description: Run `cargo audit` (slow — installs each run; off by default)
+        type: boolean
+        required: false
+        default: false
+      enable_coverage:
+        description: Measure line coverage with cargo-llvm-cov and enforce `coverage_floor` (off by default)
+        type: boolean
+        required: false
+        default: false
+      coverage_floor:
+        description: Minimum line-coverage percent when enable_coverage is set; ratchet upward, never lower.
+        type: string
+        required: false
+        default: "0"
+      clippy_args:
+        description: Args appended to `cargo clippy`
+        type: string
+        required: false
+        default: "--all-targets -- -D warnings"
+      test_args:
+        description: Args appended to `cargo test`
+        type: string
+        required: false
+        default: "--all-targets"
+      check_args:
+        description: Args appended to `cargo check`
+        type: string
+        required: false
+        default: "--all-targets"
+      working_directory:
+        description: |
+          Directory containing `Cargo.toml` (relative to the repo root). All
+          cargo invocations cd into this directory; `hashFiles()` guards also
+          consult it. Default `.` keeps single-crate repos unchanged. Set
+          to e.g. `crates/server` for a sub-crate, or pass a different
+          value per wrapper call when running the reusable in a workspace
+          via separate jobs.
+        type: string
+        required: false
+        default: "."
+      zig_version:
+        description: |
+          Exact Zig version required by a Rust crate's native build. Leave
+          empty for pure-Rust workspaces. When set, check, test, and coverage
+          jobs install the same compiler before invoking Cargo.
+        type: string
+        required: false
+        default: ""
+
+# Only `contents: read` is requested. A reusable workflow may narrow the
+# caller's permissions but never widen them: requesting a permission the
+# caller has not granted aborts the run as `startup_failure` with ZERO
+# jobs — no logs, no red step, just an empty run. The previous
+# `actions: read` here was used by no job in this file, so every caller
+# granting only `contents: read` (the estate default) failed to start.
+permissions:
+  contents: read
+
+jobs:
+  # Skip the whole reusable when the repo has no Cargo.toml — lets consumers
+  # add the wrapper unconditionally without worrying about repos that don't
+  # ship Rust code yet. This MUST be a checked-out step, NOT a job-level
+  # `if: hashFiles(...)`: job `if:` is evaluated server-side before any
+  # checkout, so hashFiles() sees an empty workspace and always returns ''
+  # — which silently skipped every job on EVERY repo, Rust or not. The
+  # detect job checks out and exposes a real boolean the others gate on.
+  detect:
+    timeout-minutes: 5
+    name: Detect Cargo.toml
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      contents: read
+    outputs:
+      has_cargo: ${{ steps.detect.outputs.has_cargo }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+      - name: Detect Cargo.toml
+        id: detect
+        run: |
+          if [ -f "${{ inputs.working_directory }}/Cargo.toml" ]; then
+            echo "has_cargo=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_cargo=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  check:
+    timeout-minutes: 20
+    name: Cargo check + clippy + fmt
+    runs-on: ${{ inputs.runs-on }}
+    needs: detect
+    if: ${{ needs.detect.outputs.has_cargo == 'true' }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+
+      - name: Install Rust toolchain
+        # `toolchain:` is mandatory because the action is pinned by commit SHA:
+        # dtolnay/rust-toolchain infers the toolchain from the `@`-ref (e.g.
+        # `@stable`), but a SHA ref carries no version, so the action's "parse
+        # toolchain version" step fails with `'toolchain' is a required input`.
+        # See standards estate-wide rust-ci red.
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: clippy, rustfmt
+
+      - name: Install native schema compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y capnproto protobuf-compiler pkg-config libssl-dev
+
+      - name: Install Zig for native build
+        if: ${{ inputs.zig_version != '' }}
+        uses: goto-bus-stop/setup-zig@v2.2.1
+        with:
+          version: ${{ inputs.zig_version }}
+
+      - name: Cache cargo registry and build
+        uses: Swatinem/rust-cache@v2.9.2
+        with:
+          workspaces: ${{ inputs.working_directory }}
+
+      - name: Cargo check
+        # `--locked` so CI honours `Cargo.lock` and surfaces dep drift the
+        # first push it happens, instead of silently re-resolving (which
+        # masked the echidna#92 / echidna PR #128 dependabot major-bump
+        # break for 24h). See standards#295.
+        run: cargo check --locked ${{ inputs.check_args }}
+
+      - name: Cargo fmt
+        run: cargo fmt --all -- --check
+
+      - name: Cargo clippy
+        run: cargo clippy --locked ${{ inputs.clippy_args }}
+
+  test:
+    timeout-minutes: 20
+    name: Cargo test
+    runs-on: ${{ inputs.runs-on }}
+    needs: [detect, check]
+    if: ${{ needs.detect.outputs.has_cargo == 'true' }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+
+      - name: Install Rust toolchain
+        # `toolchain:` mandatory under SHA pin — see Cargo check job above.
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Install native schema compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y capnproto protobuf-compiler pkg-config libssl-dev
+
+      - name: Install Zig for native build
+        if: ${{ inputs.zig_version != '' }}
+        uses: goto-bus-stop/setup-zig@v2.2.1
+        with:
+          version: ${{ inputs.zig_version }}
+
+      - name: Cache cargo registry and build
+        uses: Swatinem/rust-cache@v2.9.2
+        with:
+          workspaces: ${{ inputs.working_directory }}
+
+      - name: Run tests
+        # `--locked` — see Cargo check above.
+        run: cargo test --locked ${{ inputs.test_args }}
+
+      - name: Write summary
+        if: always()
+        run: |
+          {
+            echo "## Rust CI Results"
+            echo ""
+            echo "- **cargo check**: ${{ needs.check.result }}"
+            echo "- **cargo test**: completed"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  audit:
+    timeout-minutes: 20
+    name: Cargo audit (security)
+    runs-on: ${{ inputs.runs-on }}
+    needs: detect
+    if: ${{ inputs.enable_audit && needs.detect.outputs.has_cargo == 'true' }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+
+      - name: Install Rust toolchain
+        # `toolchain:` mandatory under SHA pin — see Cargo check job above.
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+
+      - name: Install cargo-audit
+        # Use the binstall path when available to skip a from-source rebuild
+        # on every run — was the single biggest contributor to slow CI on
+        # repos that opted in to audit (~3–4 minute install).
+        run: cargo install cargo-audit --locked
+
+      - name: Security audit
+        run: cargo audit
+
+  coverage:
+    timeout-minutes: 25
+    name: llvm-cov line coverage
+    runs-on: ${{ inputs.runs-on }}
+    needs: detect
+    if: ${{ inputs.enable_coverage && needs.detect.outputs.has_cargo == 'true' }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    env:
+      # Ratcheted line-coverage floor (from the caller). Raise toward target; never lower.
+      FLOOR: ${{ inputs.coverage_floor }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+
+      - name: Install Rust toolchain
+        # `toolchain:` mandatory under SHA pin — see Cargo check job above.
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
+          components: llvm-tools-preview
+
+      - name: Install native schema compilers
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y capnproto protobuf-compiler pkg-config libssl-dev
+
+      - name: Install Zig for native build
+        if: ${{ inputs.zig_version != '' }}
+        uses: goto-bus-stop/setup-zig@v2.2.1
+        with:
+          version: ${{ inputs.zig_version }}
+
+      - name: Install cargo-llvm-cov
+        run: cargo install cargo-llvm-cov --locked
+
+      - name: Measure line coverage
+        id: cov
+        # Self-contained: no external coverage service. Own the gate on our runner.
+        run: |
+          set -euo pipefail
+          cargo llvm-cov --workspace --locked --json --output-path cov.json
+          PCT=$(jq -r '.data[0].totals.lines.percent' cov.json)
+          printf '### Line coverage: %.2f%% (floor %s%%)\n' "$PCT" "$FLOOR" >> "$GITHUB_STEP_SUMMARY"
+          echo "pct=$PCT" >> "$GITHUB_OUTPUT"
+
+      - name: Enforce ratchet floor
+        run: |
+          set -euo pipefail
+          awk -v p="${{ steps.cov.outputs.pct }}" -v f="$FLOOR" 'BEGIN {
+            if (p + 0 < f + 0) { printf "FAIL: line coverage %.2f%% is below floor %s%%\n", p, f; exit 1 }
+            printf "OK: line coverage %.2f%% >= floor %s%%\n", p, f
+          }'
