@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 # ECHIDNA — Live-Prover CI
 #
 # Exercises real prover binaries against canonical micro-goals. Complements
@@ -85,7 +83,7 @@ jobs:
           toolchain: stable
 
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
 
       - name: Provision prover (${{ matrix.backend }})
         run: |
@@ -179,7 +177,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort via apt / upstream release)
         continue-on-error: true
         run: |
@@ -329,7 +327,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort)
         continue-on-error: true
         run: |
@@ -459,7 +457,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
       - name: Provision ${{ matrix.backend }} (best-effort, CUDA/OpenCL required)
         continue-on-error: true
         run: |

@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 name: MVP Smoke (Best Effort)
 
 on:
@@ -39,7 +37,7 @@ jobs:
           toolchain: stable
 
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
 
       - name: Install just
         uses: taiki-e/install-action@v2.86.4

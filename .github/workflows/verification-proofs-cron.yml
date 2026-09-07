@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 # Weekly verification of the heavier self-proof corpora that are too slow and too
 # network-heavy to gate on every PR: currently Isabelle/HOL (proofs/isabelle). The
 # Isabelle toolchain is a large, non-apt download (~500MB tarball), so this runs on
@@ -46,29 +44,14 @@ jobs:
       - name: Install Isabelle
         run: |
           set -euo pipefail
-          # Resolve the current Isabelle linux x86_64 tarball from the website. A
-          # pinned /dist/IsabelleYYYY URL 404s once a newer release supersedes it
-          # (live-provers.yml's Isabelle2024 pin has rotted), so discover the link
-          # from the homepage, then fall back to the dist/ directory listing.
-          url=""
-          for src in "https://isabelle.in.tum.de/" "https://isabelle.in.tum.de/dist/"; do
-            page="$(curl -fsSL --max-time 120 --retry 3 "$src" || true)"
-            echo "--- candidates from $src ---"
-            printf '%s\n' "$page" | grep -oE '(dist/)?Isabelle[0-9][0-9-]*_linux\.tar\.gz' | sort -V | uniq | tail -5 || true
-            rel="$(printf '%s\n' "$page" | grep -oE '(dist/)?Isabelle[0-9][0-9-]*_linux\.tar\.gz' | sort -V | uniq | tail -1)"
-            if [ -n "$rel" ]; then
-              case "$rel" in dist/*) url="https://isabelle.in.tum.de/$rel" ;; *) url="https://isabelle.in.tum.de/dist/$rel" ;; esac
-              break
-            fi
-          done
-          [ -n "$url" ] || { echo "could not resolve Isabelle linux tarball URL" >&2; exit 1; }
-          echo "Resolved Isabelle URL: $url"
-          curl -fsSL --max-time 900 --retry 3 --retry-delay 15 -o /tmp/isabelle.tar.gz "$url"
+          # Official Cambridge distribution mirror; immutable version and digest.
+          curl -fL --max-time 900 --retry 3 --retry-delay 15 \
+            -o /tmp/isabelle.tar.gz \
+            https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2025-2_linux.tar.gz
+          echo "a20a507bc7c1270d8be96a9f3fbec06345387789d2dc2c4d3df6260d47bfb33c  /tmp/isabelle.tar.gz" | sha256sum --check
           sudo mkdir -p /opt/isabelle
           sudo tar xzf /tmp/isabelle.tar.gz -C /opt/isabelle
-          ISABELLE_BIN="$(find /opt/isabelle -type f -name isabelle | head -n 1)"
-          [ -n "$ISABELLE_BIN" ] || { echo "isabelle launcher not found after extract" >&2; exit 1; }
-          sudo ln -sf "$ISABELLE_BIN" /usr/local/bin/isabelle
+          sudo ln -sf /opt/isabelle/Isabelle2025-2/bin/isabelle /usr/local/bin/isabelle
           isabelle version
 
       - name: Install just

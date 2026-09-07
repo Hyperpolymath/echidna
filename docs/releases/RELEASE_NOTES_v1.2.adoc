@@ -1,3 +1,5 @@
+NOTE: Historical document. `retired-affinescript` denotes the former UI source tree, which is absent from the current checkout. Commands and file-level examples using it are archival, not current build instructions. Current UI sources are in `src/ui/`; use the root Justfile for supported commands.
+
 == ECHIDNA v1.2 Release Notes
 
 *Release Date:* 2026-01-29 *Tag:* v1.2.0 *Status:* Production Ready
@@ -194,7 +196,7 @@ No breaking changes. Simply rebuild:
 [source,bash]
 ----
 cargo build --release
-cd src/affinescript && npm run build
+cd retired-affinescript && npm run build
 ----
 
 ==== New Dependencies

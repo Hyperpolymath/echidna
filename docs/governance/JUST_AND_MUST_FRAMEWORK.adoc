@@ -1,3 +1,5 @@
+NOTE: Historical document. `retired-affinescript` denotes the former UI source tree, which is absent from the current checkout. Commands and file-level examples using it are archival, not current build instructions. Current UI sources are in `src/ui/`; use the root Justfile for supported commands.
+
 == ECHIDNA: Just and Must Framework
 
 *Status*: Design Standard *Date*: 2026-01-29 *Purpose*: Standardize
@@ -67,7 +69,7 @@ build-wasm:
 # Build UI components
 build-ui:
     @echo "Compiling AffineScript UI..."
-    cd src/affinescript && npm run build
+    cd retired-affinescript && npm run build
 
 # Build Julia ML components
 build-ml:
@@ -201,7 +203,7 @@ dev-julia:
 
 # Start UI development server
 dev-ui:
-    cd src/affinescript && npm run dev
+    cd retired-affinescript && npm run dev
 
 # Watch for changes and rebuild
 watch:
@@ -218,13 +220,13 @@ install-deps:
     @echo "Installing Julia dependencies..."
     cd src/julia && julia --project -e 'using Pkg; Pkg.instantiate()'
     @echo "Installing AffineScript dependencies..."
-    cd src/affinescript && npm install
+    cd retired-affinescript && npm install
 
 # Update dependencies
 update-deps:
     cargo update
     cd src/julia && julia --project -e 'using Pkg; Pkg.update()'
-    cd src/affinescript && npm update
+    cd retired-affinescript && npm update
 
 # Check for outdated dependencies
 check-deps:
@@ -323,7 +325,7 @@ release-tag VERSION:
 clean:
     cargo clean
     rm -rf target/
-    rm -rf src/affinescript/lib/
+    rm -rf retired-affinescript/lib/
     find . -name "*.bs.js" -delete
 
 # Deep clean (including dependencies)

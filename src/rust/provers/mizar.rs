@@ -611,7 +611,7 @@ impl ProverBackend for MizarBackend {
             Term::Pi { .. } => {
                 suggestions.push(Tactic::Intro(None));
             },
-            Term::App { func: _, .. } => {
+            Term::App { .. } => {
                 for theorem in &state.context.theorems {
                     suggestions.push(Tactic::Apply(theorem.name.clone()));
                     if suggestions.len() >= limit {

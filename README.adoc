@@ -217,8 +217,7 @@ Optional, by component:
 * *Zig* >= 0.13.0 — FFI bridge (`+ffi/zig/+`, `+src/zig_ffi/+`)
 * *Chapel* — optional parallel proof dispatch (`+src/chapel/+`,
 `+--features+` `+chapel+`)
-* *Deno* >= 2.0 — AffineScript / AffineScript UI (`+src/affinescript/+`,
-`+src/ui/+`)
+* *Bun* — estate JavaScript runtime; UI sources are in `+src/ui/+`.
 
 Run `+just+` `+doctor+` to verify what’s actually installed; `+just+`
 `+heal+` will offer to install missing pieces non-destructively.

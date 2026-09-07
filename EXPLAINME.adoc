@@ -144,7 +144,7 @@ summary line is the only post-build truth.
 | **Zig**           | `ffi/zig/`, `src/zig_ffi/` — C-ABI FFI layer, hex/base64 primitives
 | **Chapel**        | `src/chapel/` — optional parallel proof dispatch with per-prover cwd/filename hooks
 | **AffineScript /     +
-  AffineScript**     | `src/affinescript/`, `src/ui/` — UI components; migration to AffineScript-TEA tracked alongside `affinescript/stdlib` primitives
+  AffineScript**     | `src/ui/`, `src/ui/` — UI components; migration to AffineScript-TEA tracked alongside `affinescript/stdlib` primitives
 |===
 
 == Dogfooded across the estate
@@ -189,7 +189,7 @@ Rust trust-pipeline properties; see `proofs/agda/`.
 | `src/rust/repl.rs`         | Interactive REPL
 | `src/interfaces/`          | API interfaces (GraphQL, gRPC, REST with real prover invocation)
 | `src/julia/`               | ML layer (logistic-regression tactic prediction)
-| `src/affinescript/`, `src/ui/` | UI components — migration to AffineScript-TEA in progress
+| `src/ui/`, `src/ui/` | UI components — migration to AffineScript-TEA in progress
 | `src/abi/`                 | Idris2 formal specifications (ABI contracts + totality proofs)
 | `ffi/zig/`, `src/zig_ffi/` | Zig FFI implementation
 | `proofs/agda/`             | Agda meta-checker (independent verification of trust properties)

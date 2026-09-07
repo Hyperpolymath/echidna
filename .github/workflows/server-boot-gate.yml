@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 # Server boot gate — builds the echidna binary, boots the server, and
 # verifies that /api/health, /api/provers, and a session {id} route all
 # respond.  Exists so "compiles" can never again mean "boots" — the
@@ -33,7 +31,7 @@ jobs:
         with:
           toolchain: stable
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
       - name: Install system dependencies
         run: sudo apt-get install -y libssl-dev pkg-config
       - name: Build echidna binary

@@ -66,7 +66,7 @@ exchange = "src/rust/exchange/"     # Cross-prover proof exchange (OpenTheory, D
 agent = "src/rust/agent/"           # Agentic proof search (actor model)
 interfaces = "src/interfaces/"      # GraphQL + gRPC + REST (workspace members)
 julia-ml = "src/julia/"             # Neural premise selection
-affinescript-ui = "src/affinescript/"       # UI components
+affinescript-ui = "src/ui/"       # UI components
 
 [trust-pipeline]
 # 11-step trust hardening (v1.5+)

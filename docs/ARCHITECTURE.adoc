@@ -24,7 +24,7 @@ independently reproduced where formats allow (Alethe, DRAT/LRAT, TSTP).
 ....
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                              UI Layer                                   │
-│   AffineScript-TEA (migrating from src/affinescript/), served by Deno      │
+│   AffineScript-TEA (migrating from src/ui/), served by Deno      │
 └──────────────────────────────┬──────────────────────────────────────────┘
                                │ HTTP / WebSocket (Cap'n Proto, planned L1)
 ┌──────────────────────────────▼──────────────────────────────────────────┐
@@ -157,7 +157,7 @@ eval)
 
 |`+src/ada/+` |Ada + SPARK |Formal companion library
 
-|`+src/affinescript/+` |AffineScript → AffineScript |UI (migration in
+|`+src/ui/+` |AffineScript → AffineScript |UI (migration in
 progress)
 
 |`+src/ui/+` |static assets |Public UI files

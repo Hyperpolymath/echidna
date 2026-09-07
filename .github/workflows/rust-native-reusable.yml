@@ -2,7 +2,6 @@
 # This workflow is managed by gh actions-lock.
 # Derived from hyperpolymath/standards@571cc734cd69fb846032ec77a662aa8ee4fc32cd.
 # Native workspace variant installs schema compilers before check/test/coverage.
-# This workflow is managed by gh actions-lock.
 # rust-ci-reusable.yml — Reusable Rust CI bundle (RSR).
 #
 # Replaces the per-repo `rust-ci.yml` template that copy-drifted across
@@ -195,7 +194,7 @@ jobs:
           version: ${{ inputs.zig_version }}
 
       - name: Cache cargo registry and build
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
         with:
           workspaces: ${{ inputs.working_directory }}
 
@@ -248,7 +247,7 @@ jobs:
           version: ${{ inputs.zig_version }}
 
       - name: Cache cargo registry and build
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
         with:
           workspaces: ${{ inputs.working_directory }}
 

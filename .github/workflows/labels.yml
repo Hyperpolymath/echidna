@@ -33,6 +33,7 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Apply canonical labels
         env:

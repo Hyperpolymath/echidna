@@ -26,7 +26,7 @@ on-the-wire data dictionary is the formal E-R schema in
 [`crates/echidna-wire/schemas/verisim_er.capnp`](https://github.com/hyperpolymath/echidna/blob/main/crates/echidna-wire/schemas/verisim_er.capnp)).
 **Idris2** (`src/abi/`) carries the FFI ABI proofs (zero `believe_me`).
 **Agda** (`meta-checker/`) carries trust-pipeline meta-proofs. **AffineScript**
-(in migration from AffineScript at `src/affinescript/`) carries the UI, served by
+(in migration from AffineScript at `src/ui/`) carries the UI, served by
 Deno.
 
 ## Corpus Ingest
@@ -212,6 +212,6 @@ See [`src/rust/provers/mod.rs`](https://github.com/hyperpolymath/echidna/blob/ma
 | `meta-checker/` | Agda | Trust-pipeline meta-proofs |
 | `src/chapel/` + `src/zig_ffi/` | Chapel + Zig | Parallel proof search (L2.1 live) |
 | `src/ada/` + `spark/` | Ada/SPARK | Formal companion library |
-| `src/affinescript/` → AffineScript | AffineScript→AffineScript | UI (migration in progress) |
+| `src/ui/` → AffineScript | AffineScript→AffineScript | UI (migration in progress) |
 
 Pointers and history evolve; the in-repo [`docs/ARCHITECTURE.md`](https://github.com/hyperpolymath/echidna/blob/main/docs/ARCHITECTURE.md) is authoritative.

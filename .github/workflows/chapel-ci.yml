@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
-# This workflow is managed by gh actions-lock.
 name: Chapel Accelerator CI
 
 on:
@@ -155,7 +153,7 @@ jobs:
           toolchain: stable
 
       - name: Rust cache
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
 
       - name: Download FFI library
         uses: actions/download-artifact@v8.0.1
@@ -209,7 +207,7 @@ jobs:
           toolchain: stable
 
       - name: Rust cache
-        uses: Swatinem/rust-cache@v2.9.2
+        uses: swatinem/rust-cache@v2.9.2
 
       - name: Download real Chapel library
         uses: actions/download-artifact@v8.0.1
