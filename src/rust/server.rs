@@ -523,17 +523,12 @@ async fn verify_handler(Json(req): Json<VerifyRequest>) -> Result<Json<VerifyRes
     // run passthrough evaluation instead of proof-obligation negation semantics.
     if should_passthrough_smt_eval(&req) {
         let Json(raw) = verify_raw_handler(Json(req.clone())).await?;
-        let smt_status =
-            extract_smt_status(&raw.stdout).or_else(|| extract_smt_status(&raw.stderr));
-        let goals_remaining = if matches!(smt_status.as_deref(), Some("unsat")) {
-            0
-        } else {
-            1
-        };
+        let smt_status = extract_smt_status(&raw.stdout);
 
         // A completed SMT query is not necessarily a discharged obligation.
         // Only unsat closes a query interpreted as the negated obligation.
-        let verified = raw.valid && matches!(smt_status.as_deref(), Some("unsat"));
+        let verified = raw.valid && discharged_smt_queries(&req.content, &raw.stdout);
+        let goals_remaining = if verified { 0 } else { 1 };
         let outcome_str = if verified { "PROVED" } else { "NO_PROOF_FOUND" };
         return Ok(Json(VerifyResponse {
             valid: verified,
@@ -816,16 +811,129 @@ fn should_passthrough_smt_eval(req: &VerifyRequest) -> bool {
 }
 
 fn extract_smt_status(text: &str) -> Option<String> {
-    let lower = text.to_ascii_lowercase();
-    if lower.contains("unsat") {
-        Some("unsat".to_string())
-    } else if lower.contains("sat") {
-        Some("sat".to_string())
-    } else if lower.contains("unknown") {
-        Some("unknown".to_string())
-    } else {
-        None
+    // Result tokens are case-sensitive, standalone SMT-LIB responses.
+    // A satisfiable or unknown query prevents an aggregate proof claim.
+    let statuses: Vec<_> = text
+        .lines()
+        .map(str::trim)
+        .filter(|line| matches!(*line, "sat" | "unsat" | "unknown"))
+        .collect();
+    ["sat", "unknown", "unsat"]
+        .into_iter()
+        .find(|status| statuses.contains(status))
+        .map(str::to_owned)
+}
+
+fn discharged_smt_queries(source: &str, stdout: &str) -> bool {
+    let Some(commands) = smt_commands(source) else {
+        return false;
+    };
+    // Z3 emits echo strings without quotes. Never authenticate an echoed
+    // "unsat" as a solver answer, including echo+exit before a query.
+    if commands
+        .iter()
+        .any(|command| matches!(*command, "echo" | "exit"))
+    {
+        return false;
     }
+    let queries = commands
+        .iter()
+        .filter(|command| matches!(**command, "check-sat" | "check-sat-assuming"))
+        .count();
+    let statuses: Vec<_> = stdout
+        .lines()
+        .map(str::trim)
+        .filter(|line| matches!(*line, "sat" | "unsat" | "unknown"))
+        .collect();
+    queries > 0 && statuses.len() == queries && statuses.iter().all(|status| *status == "unsat")
+}
+
+/// Read command names only; the real solver still validates SMT-LIB terms.
+/// Strings, quoted symbols and line comments cannot introduce commands.
+fn smt_commands(source: &str) -> Option<Vec<&str>> {
+    let bytes = source.as_bytes();
+    let mut commands = Vec::new();
+    let (mut index, mut depth) = (0, 0usize);
+    while index < bytes.len() {
+        match bytes[index] {
+            b';' => {
+                while index < bytes.len() && bytes[index] != b'\n' {
+                    index += 1;
+                }
+            },
+            b'"' | b'|' => {
+                if depth == 0 {
+                    return None;
+                }
+                let delimiter = bytes[index];
+                index += 1;
+                loop {
+                    if index == bytes.len() {
+                        return None;
+                    }
+                    if bytes[index] == delimiter {
+                        index += 1;
+                        if delimiter == b'"' && bytes.get(index) == Some(&b'"') {
+                            index += 1;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        index += 1;
+                    }
+                }
+            },
+            b'(' => {
+                if depth == 0 {
+                    index += 1;
+                    // Whitespace and comments are legal before the command.
+                    loop {
+                        while bytes.get(index).is_some_and(u8::is_ascii_whitespace) {
+                            index += 1;
+                        }
+                        if bytes.get(index) != Some(&b';') {
+                            break;
+                        }
+                        while index < bytes.len() && bytes[index] != b'\n' {
+                            index += 1;
+                        }
+                    }
+                    let start = index;
+                    while bytes
+                        .get(index)
+                        .is_some_and(|b| b.is_ascii_alphanumeric() || *b == b'-')
+                    {
+                        index += 1;
+                    }
+                    if index == start
+                        || !bytes
+                            .get(index)
+                            .is_some_and(|b| b.is_ascii_whitespace() || matches!(b, b')' | b';'))
+                    {
+                        return None;
+                    }
+                    commands.push(&source[start..index]);
+                } else {
+                    index += 1;
+                }
+                depth += 1;
+            },
+            b')' => {
+                depth = depth.checked_sub(1)?;
+                index += 1;
+            },
+            byte if byte.is_ascii_whitespace() => {
+                index += 1;
+            },
+            _ => {
+                if depth == 0 {
+                    return None;
+                }
+                index += 1;
+            },
+        }
+    }
+    (depth == 0).then_some(commands)
 }
 
 /// Get tactic suggestions
@@ -1271,9 +1379,9 @@ async fn search_theorems_ui(
     // stable shape, and the real query goes through the search
     // workspace member.
     let results = vec![
-        format!("Theorem: associativity_add (a + b) + c = a + (b + c)"),
-        format!("Theorem: commutativity_mul a * b = b * a"),
-        format!("Lemma: distributivity a * (b + c) = a * b + a * c"),
+        "Theorem: associativity_add (a + b) + c = a + (b + c)".to_string(),
+        "Theorem: commutativity_mul a * b = b * a".to_string(),
+        "Lemma: distributivity a * (b + c) = a * b + a * c".to_string(),
     ];
 
     Ok(Json(SearchTheoremsUIResponse { results }))

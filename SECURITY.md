@@ -1,4 +1,4 @@
-<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
 # Security policy
 
 Report vulnerabilities privately using [GitHub Security Advisories](https://github.com/hyperpolymath/echidna/security/advisories/new).

@@ -107,8 +107,8 @@ package definitions (not metadata files) and must NOT be deleted.
 | **Chapel** | Optional parallel proof dispatch | Wired via Cargo `chapel` feature |
 | **Guile Scheme** | Guix package definitions (`guix.scm`, `manifests/*.scm`) | `.scm` metadata files are deprecated — see below |
 | **Bash/POSIX Shell** | Build scripts, CI glue | Keep minimal |
-| **AffineScript** | UI components (TEA architecture, compiled to typed-wasm / wasm, served via Deno) | Replaces AffineScript per `docs/ROADMAP.md`; migration in progress at `src/ui/` |
-| **Bun** | Runtime for compiled AffineScript-TEA UI | Replaces Node/npm/Deno |
+| **AffineScript** | TEA sources in `src/ui/tea/`; static shell in `src/ui/public/` | The compile pipeline is unavailable; `build-ui` fails explicitly |
+| **Bun** | Estate JavaScript runtime | The legacy serve recipes still require migration; open `src/ui/public/prove.html` directly for the working static UI |
 | **JavaScript** | Build tooling only (Tailwind config, test harness) | Not for business logic |
 | **OCaml** | AffineScript compiler host | Decision locked — AffineScript selected for UI |
 | **Nickel** | Configuration language | Used across `configs/`, `echidna-playground/contractiles/k9/`, `.machine_readable/`, `echidnabot/config/` (11+ `.ncl` files) |
@@ -127,7 +127,7 @@ package definitions (not metadata files) and must NOT be deleted.
 
 ### Enforcement Rules
 
-1. **No new TypeScript or ReScript files** - Use AffineScript-TEA; migrate existing `src/ui/` to AffineScript per `docs/ROADMAP.md`
+1. **No new TypeScript or ReScript files** - Use AffineScript-TEA sources in `src/ui/tea/`; the compiled UI pipeline is not yet wired
 2. **Use `package.json` + `bun.lock` for JS runtime deps** - Bun is npm-compatible; a manifest is REQUIRED
 3. **`bun install --production --frozen-lockfile` for production deps** - resolved from `package.json` and pinned via `bun.lock`; `--frozen-lockfile` makes a lockfile mismatch a build failure rather than a silent re-resolve
 4. **No Go code** - Use Rust instead

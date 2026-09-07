@@ -24,7 +24,7 @@ independently reproduced where formats allow (Alethe, DRAT/LRAT, TSTP).
 ....
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                              UI Layer                                   │
-│   AffineScript-TEA (migrating from src/ui/), served by Deno      │
+│   TEA sources: src/ui/tea/; static shell: src/ui/public/      │
 └──────────────────────────────┬──────────────────────────────────────────┘
                                │ HTTP / WebSocket (Cap'n Proto, planned L1)
 ┌──────────────────────────────▼──────────────────────────────────────────┐
@@ -157,10 +157,9 @@ eval)
 
 |`+src/ada/+` |Ada + SPARK |Formal companion library
 
-|`+src/ui/+` |AffineScript → AffineScript |UI (migration in
-progress)
+|`+src/ui/tea/+` |AffineScript-TEA |UI sources (compile pipeline unavailable)
 
-|`+src/ui/+` |static assets |Public UI files
+|`+src/ui/public/+` |HTML/static assets |Browser shell; open prove.html directly
 
 |`+src/interfaces/+` |Rust |GraphQL, gRPC, REST workspace crates
 |===

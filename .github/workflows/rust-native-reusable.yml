@@ -345,7 +345,7 @@ jobs:
         # Self-contained: no external coverage service. Own the gate on our runner.
         run: |
           set -euo pipefail
-          cargo llvm-cov --workspace --locked --json --output-path cov.json
+          cargo llvm-cov --locked --json --output-path cov.json
           PCT=$(jq -r '.data[0].totals.lines.percent' cov.json)
           printf '### Line coverage: %.2f%% (floor %s%%)\n' "$PCT" "$FLOOR" >> "$GITHUB_STEP_SUMMARY"
           echo "pct=$PCT" >> "$GITHUB_OUTPUT"
@@ -354,6 +354,9 @@ jobs:
         run: |
           set -euo pipefail
           awk -v p="${{ steps.cov.outputs.pct }}" -v f="$FLOOR" 'BEGIN {
+            if (f !~ /^[0-9]+([.][0-9]+)?$/ || f + 0 > 100 || p !~ /^[0-9]+([.][0-9]+)?$/ || p + 0 > 100) {
+              print "FAIL: coverage and floor must be numeric percentages in [0, 100]"; exit 1
+            }
             if (p + 0 < f + 0) { printf "FAIL: line coverage %.2f%% is below floor %s%%\n", p, f; exit 1 }
             printf "OK: line coverage %.2f%% >= floor %s%%\n", p, f
           }'

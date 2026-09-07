@@ -15,8 +15,6 @@ jobs:
     name: Proof safety regressions
     runs-on: ubuntu-24.04
     timeout-minutes: 25
-    env:
-      VERISIMDB_URL: http://127.0.0.1:17799
     steps:
       - uses: actions/checkout@v7.0.1
         with:

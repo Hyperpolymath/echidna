@@ -61,6 +61,28 @@ async fn http_verification_requires_a_discharged_obligation() {
             );
         }
     }
+    for prover in ["Z3", "CVC5"] {
+        for content in [
+            "(set-logic QF_LIA)\n(echo \"unsat\")\n(assert true)\n(check-sat)",
+            "(set-logic QF_LIA)\n(echo \"unsat\")\n(exit)\n; (check-sat)",
+            "(set-logic QF_LIA)\n(push 1)\n(assert false)\n(check-sat)\n(pop 1)\n(check-sat)",
+            "(set-logic QF_LIA)\n(; comment before command\n echo \"unsat\")\n(exit)\n(check-sat)",
+        ] {
+            let result: Value = client
+                .post(format!("{base}/api/verify"))
+                .json(&json!({"prover": prover, "content": content}))
+                .send()
+                .await
+                .unwrap()
+                .error_for_status()
+                .unwrap()
+                .json()
+                .await
+                .unwrap();
+            assert_eq!(result["valid"], false, "{prover}: {content}: {result}");
+            assert_ne!(result["outcome"], "PROVED", "{prover}: {content}: {result}");
+        }
+    }
     for (content, expected) in [
         (
             "Theorem identity : forall P : Prop, P -> P. Proof. intros P H. exact H. Qed.",
@@ -111,24 +133,12 @@ async fn coq_string_submission_accepts_proof_and_rejects_falsehood() {
 
 #[test]
 fn report_actual_backend_inventory() {
-    // Ask the compiled serde implementation for its accepted variants. This
-    // includes variants omitted by ProverKind::all(), unlike the CLI listing.
-    let error = serde_json::from_str::<ProverKind>("\"_inventory_probe_\"")
-        .unwrap_err()
-        .to_string();
-    let expected = error
-        .split("expected one of ")
-        .nth(1)
-        .expect("serde variant list");
-    let variants: Vec<_> = expected
-        .split('`')
-        .enumerate()
-        .filter_map(|(index, value)| (index % 2 == 1).then_some(value))
-        .collect();
+    use strum::IntoEnumIterator;
+    // Derived from the enum itself, including variants omitted by the CLI.
     let advertised = ProverKind::all();
     let mut records = Vec::new();
-    for name in variants {
-        let kind: ProverKind = serde_json::from_value(serde_json::json!(name)).unwrap();
+    for kind in ProverKind::iter() {
+        let name = serde_json::to_value(kind).unwrap();
         let executable = kind.default_executable();
         let path = which::which(executable).ok();
         records.push(serde_json::json!({

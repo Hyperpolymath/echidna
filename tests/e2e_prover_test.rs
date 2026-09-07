@@ -368,12 +368,12 @@ async fn e2e_malformed_input_returns_error_not_panic() -> Result<()> {
         match result {
             Ok(r) => eprintln!(
                 "E2E malformed[{}..]: Ok(verified={})",
-                &input.chars().take(20).collect::<String>(),
+                input.chars().take(20).collect::<String>(),
                 r.verified
             ),
             Err(e) => eprintln!(
                 "E2E malformed[{}..]: Err({})",
-                &input.chars().take(20).collect::<String>(),
+                input.chars().take(20).collect::<String>(),
                 e
             ),
         }
