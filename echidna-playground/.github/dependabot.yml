@@ -16,6 +16,7 @@ updates:
       actions:
         patterns:
           - "*"
+    open-pull-requests-limit: 2
 
   # Rust/Cargo
   - package-ecosystem: "cargo"
@@ -25,21 +26,25 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+    open-pull-requests-limit: 0
 
   # Elixir/Mix
   - package-ecosystem: "mix"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 3
 
   # Node.js/npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 3
 
   # Python/pip
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 3
