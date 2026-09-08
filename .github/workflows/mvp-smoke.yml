@@ -41,7 +41,7 @@ jobs:
         uses: Swatinem/rust-cache@v2.9.2
 
       - name: Install just
-        uses: taiki-e/install-action@v2.86.4
+        uses: taiki-e/install-action@v2.87.3
         with:
           # Governance R1 requires versioned family-tool pins
           # (just|must|trust|adjust|bust|dust|intend); bare `tool: just`
